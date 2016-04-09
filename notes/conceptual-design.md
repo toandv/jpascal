@@ -1,4 +1,4 @@
-# The conceptual design of compilers and intepreters
+# The conceptual design of compilers and intepreters - Chapter 1
 
 Compilers and intepreters can be classified both as programming language translators.
 A translator consists of *front end* and *back end*. As a result, a compiler and an intepreter can share the same front end,
@@ -40,6 +40,25 @@ In other words, we can use the same structures for different source languages. T
 Below is the more complete conceptual design of a compiler or an intepreter:
 
 ![alt text] (https://github.com/StudyInDepth/wci/blob/master/notes/images/conceptual-design-fe-be.png)
+
+## Syntax and Semantics
+
+* The syntax of a programming language is its set of grammar rules that determine whether a statement or expression is correctly written in that language.
+* The semantics of language give the meaning of a statement or an expression written in that language.
+
+The parser performs actions based on both th source language's syntax and semantics.
+* Scanning the source program and extracting tokens are the syntactic actions. 
+* Entering identifiers into symbol table or looking them up are semantic actions
+* Generating intermediate code is semantic
+* Syntactic actions occur only in the front end, while sematic actions occur in both front end and back end.
+* The intermedate code and the symbol table store semantic information.
+
+## Lexcial, Syntax, and Semantic Analyses 
+
+* Lexical analysis is the formal term for scanning, and thus a scanner can be called a lexcial analyzer.
+* Syntax analysis is the formal term for parsing, and thus a parser is called a syntax analyzer.
+* Sematic analysis involves checking that sematic rules are't broken, for example type checking, which ensures types of operands are consistent with their operators.
+* Other operations of semantic analysis are building the symbol table and generating the intemediate code.
 
 
 
