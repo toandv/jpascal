@@ -16,9 +16,9 @@ The conceptual design of the front end:
 ![alt text] (https://github.com/StudyInDepth/wci/blob/master/notes/images/front-end.png)
 
 An arrow represents a command issued by one compoent to another. 
-The parser tels the scanner to get the next token.
-The scanner reads characters from the source and constructs a new token.
-The token also reads characters from the source, for some purposes, later digging into.
+* The parser tels the scanner to get the next token.
+* The scanner reads characters from the source and constructs a new token.
+* The token also reads characters from the source, for some purposes, later digging into.
 
 A compiler ultimately translates a source program into machine language object code, sot the primary component of its back end is a code generator.
 An intepreter executes the program, so the primary component of its back edn is an executor.
