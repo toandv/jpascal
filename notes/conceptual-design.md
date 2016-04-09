@@ -11,7 +11,8 @@ The *parser* alse verifies that what it sees is systactically correct as written
 
 The *scanner* reads the characters of the source programm sequentially and constructs tokens, which are the low-level elements of the source language. For example, Pascal tokens include reserved words such as *BEGIN, END, IF, THEN, ELSE*, or *indentifiers* that names of *variables, prodecures, functions*, and *special symbols* such as *= := + - / **. What the *scanner* does is called *scanning*, and scannes the source program to break it apart into tokens.
 
-
+The conceptual design of the front end:
+![alt text] (https://github.com/StudyInDepth/wci/blob/master/notes/images/front-end.png)
 
  
 
