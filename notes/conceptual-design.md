@@ -34,7 +34,8 @@ An intepreter's backend processes the intermediate code and the symbol table to 
 
 To further software reuse, we can design the intermediate code and the symbol table structures to be language independent.
 In other words, we can use the same structures for different source languagesymbol table structures to be language independent.
-In other words, we can use the same structures for different source languages. Therefore, the backedn will also be language independent, it doesn't need to know or core what the source language was.
+
+In other words, we can use the same structures for different source languages. Therefore, the back end will also be language independent, it doesn't need to know or core what the source language was.
 
 Below is the more complete conceptual design of a compiler or an intepreter:
 
