@@ -2,37 +2,69 @@ package io.github.toandv.wci.frontend;
 
 /**
  * Tokens are language elements such as reserved keywords, identifiers, or
- * special symbols
+ * special symbols The framework class that represents a token returned from the
+ * Scanner
  * 
  * @author toandv
  *
  */
 public class Token {
 
-    protected Source source;
+    protected TokenType type; // language-specific token type
 
-    protected TokenType type;
+    protected String text; // token text
 
-    protected String text;
+    protected Object value; // token value
 
-    protected Object value;
+    protected Source source; // source
 
-    private int lineNum;
+    private int lineNum; // line number of the token
 
-    private int position;
+    private int position; // position of the first token character
 
-    protected void exract() {
+    public Token(Source source) throws Exception {
+        this.source = source;
+        this.lineNum = source.getLineNum();
+        this.position = source.getCurrentPos();
+
+        extract();
     }
 
-    protected char currentChar() {
-        return 0;
+    /**
+     * Default method that extracts only one-character tokens from the source
+     * Language-specific subclasses should override this method to construct
+     * tokens
+     * 
+     * After extracting the token, the current source line position will be one
+     * beyond the last token character
+     * 
+     * @throws Exception
+     */
+    protected void extract() throws Exception {
+        text = Character.toString(currentChar());
+        value = null;
+
+        nextChar(); // consume the current char
     }
 
-    protected char nextChar() {
-        return 0;
+    protected char currentChar() throws Exception {
+        return source.currentChar();
     }
 
-    protected char peekChar() {
-        return 0;
+    protected char nextChar() throws Exception {
+        return source.nextChar();
     }
+
+    protected char peekChar() throws Exception {
+        return source.peekChar();
+    }
+
+    public int getLineNum() {
+        return lineNum;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
 }

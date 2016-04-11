@@ -1,6 +1,10 @@
 package io.github.toandv.wci.frontend;
 
 import io.github.toandv.wci.intermediate.SymTab;
+import io.github.toandv.wci.message.Message;
+import io.github.toandv.wci.message.MessageHandler;
+import io.github.toandv.wci.message.MessageListener;
+import io.github.toandv.wci.message.MessageProducer;
 
 /**
  * The Parser controls the translation process in the front end. It repeatedly
@@ -21,9 +25,18 @@ import io.github.toandv.wci.intermediate.SymTab;
  * @author toandv
  * @since 2016/04/10
  */
-public abstract class Parser {
+public abstract class Parser implements MessageProducer {
 
+    // XXX I doubt it
     protected static SymTab symTab;
+
+    // XXX why static???, I doubt this, it should be non-static
+    protected static MessageHandler messageHandler;
+
+    static {
+        symTab = null;
+        messageHandler = new MessageHandler();
+    }
 
     // used to read tokens
     protected Scanner scanner;
@@ -36,7 +49,7 @@ public abstract class Parser {
      * Parse the source program and generate the intermediate code and symbol
      * table
      */
-    public abstract void parse();
+    public abstract void parse() throws Exception;
 
     public abstract int getErrorCount();
 
@@ -44,8 +57,23 @@ public abstract class Parser {
         return scanner.currentToken();
     }
 
-    public Token nextToken() {
+    public Token nextToken() throws Exception {
         return scanner.nextToken();
+    }
+
+    @Override
+    public void addMessageListener(MessageListener listener) {
+        messageHandler.addListener(listener);
+    }
+
+    @Override
+    public void removeMessageListener(MessageListener listener) {
+        messageHandler.removeListener(listener);
+    }
+
+    @Override
+    public void sendMessage(Message message) {
+        messageHandler.sendMessage(message);
     }
 
 }

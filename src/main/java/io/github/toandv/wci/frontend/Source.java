@@ -3,7 +3,19 @@ package io.github.toandv.wci.frontend;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class Source implements AutoCloseable {
+import io.github.toandv.wci.message.Message;
+import io.github.toandv.wci.message.MessageHandler;
+import io.github.toandv.wci.message.MessageListener;
+import io.github.toandv.wci.message.MessageProducer;
+
+/**
+ * 
+ * The framework class representing the source program.
+ * 
+ * @author toandv
+ * 
+ */
+public class Source implements AutoCloseable, MessageProducer {
 
     public static final char EOL = '\n';
 
@@ -17,9 +29,13 @@ public class Source implements AutoCloseable {
 
     private int currentPos;
 
+    private MessageHandler messageHandler;
+
     public Source(BufferedReader reader) {
         this.reader = reader;
         this.currentPos = -2; // set to 2 to read the first line
+
+        messageHandler = new MessageHandler();
     }
 
     /**
@@ -117,4 +133,18 @@ public class Source implements AutoCloseable {
         return currentPos;
     }
 
+    @Override
+    public void addMessageListener(MessageListener listener) {
+        messageHandler.addListener(listener);
+    }
+
+    @Override
+    public void removeMessageListener(MessageListener listener) {
+        messageHandler.removeListener(listener);
+    }
+
+    @Override
+    public void sendMessage(Message message) {
+        messageHandler.sendMessage(message);
+    }
 }

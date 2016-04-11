@@ -18,12 +18,17 @@ public abstract class Scanner {
         return currentToken;
     }
 
-    public Token nextToken() {
+    public Scanner(Source source) {
+        super();
+        this.source = source;
+    }
+
+    public Token nextToken() throws Exception {
         currentToken = extractToken();
         return currentToken;
     }
 
-    public abstract Token extractToken();
+    public abstract Token extractToken() throws Exception;
 
     public char currentChar() throws Exception {
         return source.currentChar();
