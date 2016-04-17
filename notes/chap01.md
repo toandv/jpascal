@@ -55,7 +55,7 @@ The parser performs actions based on both th source language's syntax and semant
 
 ## Lexcial, Syntax, and Semantic Analyses 
 
-* Lexical analysis is the formal term for scanning, and thus a scanner can be called a lexcial analyzer.
+* Lexical analysis is the formal term for scanning, and thus a scanner can be called a lexcial analyzer - Lexer.
 * Syntax analysis is the formal term for parsing, and thus a parser is called a syntax analyzer.
 * Sematic analysis involves checking that sematic rules are't broken, for example type checking, which ensures types of operands are consistent with their operators.
 * Other operations of semantic analysis are building the symbol table and generating the intemediate code.
