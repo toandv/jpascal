@@ -24,6 +24,11 @@ public enum MessageType {
 
     MISCELLANEOUS,
 
+    // token.getLineNumber() source line number
+    // token.getPosition() beginning source position
+    // token.getType() token type
+    // token.getText() token text
+    // token.getValue() token value
     TOKEN,
 
     ASSIGN,

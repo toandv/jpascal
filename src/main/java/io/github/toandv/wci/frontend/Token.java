@@ -1,5 +1,7 @@
 package io.github.toandv.wci.frontend;
 
+import io.github.toandv.wci.utils.JsonUtils;
+
 /**
  * Tokens are language elements such as reserved keywords, identifiers, or
  * special symbols The framework class that represents a token returned from the
@@ -67,4 +69,24 @@ public class Token {
         return position;
     }
 
+    public String getText() {
+        return text;
+    }
+
+    public TokenType getType() {
+        return type;
+    }
+
+    public Object getValue() {
+        return value;
+    }
+
+    public Source getSource() {
+        return source;
+    }
+
+    @Override
+    public String toString() {
+        return JsonUtils.toJson(this);
+    }
 }

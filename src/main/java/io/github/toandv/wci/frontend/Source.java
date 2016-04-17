@@ -7,6 +7,7 @@ import io.github.toandv.wci.message.Message;
 import io.github.toandv.wci.message.MessageHandler;
 import io.github.toandv.wci.message.MessageListener;
 import io.github.toandv.wci.message.MessageProducer;
+import io.github.toandv.wci.message.MessageType;
 
 /**
  * 
@@ -110,6 +111,10 @@ public class Source implements AutoCloseable, MessageProducer {
         if (line != null) {
             lineNum++;
         }
+
+        if (line != null) {
+            sendMessage(new Message(MessageType.SOURCE_LINE, new Object[] { lineNum, line }));
+        }
     }
 
     /**
@@ -147,4 +152,5 @@ public class Source implements AutoCloseable, MessageProducer {
     public void sendMessage(Message message) {
         messageHandler.sendMessage(message);
     }
+
 }
