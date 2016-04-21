@@ -11,6 +11,7 @@ import io.github.toandv.wci.frontend.Parser;
 import io.github.toandv.wci.frontend.Scanner;
 import io.github.toandv.wci.frontend.Source;
 import io.github.toandv.wci.frontend.SourceTest;
+import io.github.toandv.wci.frontend.Token;
 import io.github.toandv.wci.frontend.pascal.PascalParserTD;
 import io.github.toandv.wci.frontend.pascal.PascalScanner;
 
@@ -34,6 +35,10 @@ public abstract class TokenBaseTest {
     @After
     public void clean() throws Exception {
         source.close();
+    }
+
+    public Token nextToken() throws Exception {
+        return parser.nextToken();
     }
 
 }

@@ -95,12 +95,16 @@ public enum PascalTokenType implements TokenType {
         SPECIAL_SYMBOLS = ImmutableMap.copyOf(SPECIAL_SYMBOLS);
     }
 
-    public static PascalTokenType getType(String tokenText) {
+    public static PascalTokenType getReservedWord(String tokenText) {
         PascalTokenType pascalTokenType = RESERVED_WORDS.get(tokenText.toLowerCase());
         if (pascalTokenType == null) {
             return PascalTokenType.IDENTIFIER;
         }
         return pascalTokenType;
+    }
+
+    public static PascalTokenType getSpecialSymbol(String key) {
+        return SPECIAL_SYMBOLS.get(key);
     }
 
 }

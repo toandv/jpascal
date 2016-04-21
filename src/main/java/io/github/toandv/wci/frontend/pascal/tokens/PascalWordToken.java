@@ -20,7 +20,7 @@ public class PascalWordToken extends PascalToken {
             currentChar = nextChar();
         }
         this.text = buffer.toString();
-        this.type = PascalTokenType.getType(text);
+        this.type = PascalTokenType.getReservedWord(text);
     }
 
 }
