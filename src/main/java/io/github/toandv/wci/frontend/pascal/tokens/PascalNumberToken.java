@@ -1,6 +1,7 @@
 package io.github.toandv.wci.frontend.pascal.tokens;
 
 import io.github.toandv.wci.frontend.Source;
+import io.github.toandv.wci.frontend.pascal.PascalErrorCode;
 import io.github.toandv.wci.frontend.pascal.PascalTokenType;
 
 /**
@@ -40,32 +41,107 @@ public class PascalNumberToken extends PascalToken {
         // fifth, extract exponentDigits
         // sixth, compute number value
 
-        wholeDigits = extractDigits();
-        fractionDigits = extractFractionDigits();
+        wholeDigits = extractDigits(textBuffer);
+        fractionDigits = extractFractionDigits(textBuffer);
 
         if (!fractionDigits.isEmpty()) {
             this.type = PascalTokenType.REAL;
         }
 
-        exponentSign = extractExponentSign();
+        exponentSign = extractExponentSign(textBuffer);
 
         if (!exponentSign.isEmpty()) {
             this.type = PascalTokenType.REAL;
-            exponentDigits = extractDigits();
-            if (exponentDigits.isEmpty()) {
-                this.type = PascalTokenType.ERROR;
-            }
+            exponentDigits = extractDigits(textBuffer);
         }
+
+        // compute
+
+        if (this.type == PascalTokenType.INTEGER) {
+            this.value = computeUnsignedInteger(wholeDigits);
+        }
+
+        if (this.type == PascalTokenType.REAL) {
+            this.value = computeDouble(wholeDigits, fractionDigits, exponentSign, exponentDigits);
+        }
+        
+        this.text = textBuffer.toString();
 
     }
 
-    private String extractExponentSign() throws Exception {
+    private double computeDouble(String wholeDigits, String fractionDigits, String exponentSign,
+            String exponentDigits) {
+
+        String digits = wholeDigits;
+
+        double exponentValue = computeUnsignedDouble(exponentDigits);
+
+        if (!fractionDigits.isEmpty()) {
+            digits += fractionDigits;
+            exponentValue -= fractionDigits.length();
+        }
+        // check for real number out of range error
+        // XXX wholeDigits or digits???, (may minus  1)
+        if (Math.abs(exponentValue + digits.length()) > MAX_EXPONENT) {
+            type = PascalTokenType.ERROR;
+            value = PascalErrorCode.RANGE_REAL;
+            return 0.0f;
+        }
+        double digitsValue = computeUnsignedDouble(digits);
+
+        if ("-".equals(exponentSign)) {
+            exponentValue = -exponentValue;
+        }
+        return digitsValue * Math.pow(10, exponentValue);
+    }
+
+    private double computeUnsignedDouble(String digits) {
+        double currentValue = 0.0;
+        double prevValue = -1.0;
+        int index = 0;
+        // abc = a* 10^2 + b * 10^1 + c * 10^0
+        // or abc = 10 * (10 * (10 * 0 + a) + b) + c
+        while (index < digits.length() && currentValue >= prevValue) {
+            char digit = digits.charAt(index++);
+            currentValue = 10 * currentValue + Character.getNumericValue(digit);
+        }
+        if (currentValue >= prevValue) {
+            return currentValue;
+        }
+        //error, overflow prevValue > currentValue
+        this.type = PascalTokenType.ERROR;
+        this.value = PascalErrorCode.RANGE_REAL;
+        return 0.0;
+    }
+
+    private int computeUnsignedInteger(String digits) {
+        int currentValue = 0;
+        int prevValue = -1;
+        int index = 0;
+        // abc = a* 10^2 + b * 10^1 + c * 10^0
+        // or abc = 10 * (10 * (10 * 0 + a) + b) + c
+        while (index < digits.length() && currentValue >= prevValue) {
+            char digit = digits.charAt(index++);
+            currentValue = 10 * currentValue + Character.getNumericValue(digit);
+        }
+        if (currentValue >= prevValue) {
+            return currentValue;
+        }
+        //error, overflow prevValue > currentValue
+        this.type = PascalTokenType.ERROR;
+        this.value = PascalErrorCode.RANGE_INTEGER;
+        return 0;
+    }
+
+    private String extractExponentSign(StringBuilder textBuffer) throws Exception {
         char currentChar = currentChar();
         if (currentChar == 'e' || currentChar == 'E') {
             // consume
+            textBuffer.append(currentChar);
             currentChar = nextChar();
             if (currentChar == '-' || currentChar == '+') {
                 // consume
+                textBuffer.append(currentChar);
                 nextChar();
                 return Character.toString(currentChar);
             }
@@ -74,28 +150,37 @@ public class PascalNumberToken extends PascalToken {
         return "";
     }
 
-    private String extractFractionDigits() throws Exception {
+    private String extractFractionDigits(StringBuilder textBuffer) throws Exception {
         if (currentChar() == '.' && peekChar() == '.') {
             // dot dot token
             return "";
         }
         if (currentChar() == '.') {
             // consume
+            textBuffer.append('.');
             nextChar();
         }
-        return extractDigits();
+        return extractDigits(textBuffer);
     }
 
-    private String extractDigits() throws Exception {
+    private String extractDigits(StringBuilder textBuffer) throws Exception {
 
-        // this must be digit obviously
         StringBuilder buffer = new StringBuilder();
+
         char currentChar = currentChar();
+        if (!Character.isDigit(currentChar)) {
+            this.type = PascalTokenType.ERROR;
+            this.value = PascalErrorCode.INVALID_NUMBER;
+            return "";
+        }
         while (Character.isDigit(currentChar)) {
             buffer.append(currentChar);
+            textBuffer.append(currentChar);
             currentChar = nextChar();
         }
         return buffer.toString();
     }
+
+    public static final int MAX_EXPONENT = 308;
 
 }
