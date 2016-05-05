@@ -5,6 +5,7 @@ import java.util.List;
 
 import io.github.toandv.wci.intermediate.SymTab;
 import io.github.toandv.wci.intermediate.SymTabEntry;
+import io.github.toandv.wci.intermediate.SymTabFactory;
 import io.github.toandv.wci.intermediate.SymTabStack;
 
 public class SymTabStackImpl implements SymTabStack {

@@ -6,6 +6,7 @@ import io.github.toandv.wci.frontend.Parser;
 import io.github.toandv.wci.frontend.Scanner;
 import io.github.toandv.wci.frontend.Token;
 import io.github.toandv.wci.frontend.TokenType;
+import io.github.toandv.wci.intermediate.SymTabEntry;
 import io.github.toandv.wci.message.Message;
 import io.github.toandv.wci.message.MessageType;
 
@@ -41,6 +42,20 @@ public class PascalParserTD extends Parser {
                     // Format each token.
                     sendMessage(new Message(MessageType.TOKEN, new Object[] { token.getLineNum(), token.getPosition(),
                             tokenType, token.getText(), token.getValue() }));
+
+                    // for now, only cross-reference identifiers
+                    if (tokenType == PascalTokenType.IDENTIFIER) {
+                        String name = token.getText().toLowerCase();
+
+                        SymTabEntry entry = symTabStack.lookup(name);
+
+                        if (entry == null) {
+                            entry = symTabStack.enterLocal(name);
+                        }
+
+                        entry.appendLineNumber(token.getLineNum());
+                    }
+
                 } else {
                     errorHandler.flag(token, (PascalErrorCode) token.getValue(), this);
                 }

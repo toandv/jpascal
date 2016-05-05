@@ -10,9 +10,11 @@ import io.github.toandv.wci.frontend.Parser;
 import io.github.toandv.wci.frontend.Source;
 import io.github.toandv.wci.intermediate.ICode;
 import io.github.toandv.wci.intermediate.SymTab;
+import io.github.toandv.wci.intermediate.SymTabStack;
 import io.github.toandv.wci.message.Message;
 import io.github.toandv.wci.message.MessageListener;
 import io.github.toandv.wci.message.MessageType;
+import io.github.toandv.wci.utils.CrossReferencer;
 
 /**
  * <h1>Pascal</h1>
@@ -33,6 +35,7 @@ public class Pascal {
     private Source source; // language-independent scanner
     private ICode iCode; // generated intermediate code
     private SymTab symTab; // generated symbol table
+    private SymTabStack symTabStack; // symbol table stack
     private Backend backend; // backend
 
     /**
@@ -65,6 +68,13 @@ public class Pascal {
             iCode = parser.getICode();
             symTab = parser.getSymTab();
 
+            symTabStack = parser.getSymTabStack();
+
+            if (xref) {
+                CrossReferencer crossReferencer = new CrossReferencer();
+                crossReferencer.print(symTabStack);
+            }
+
             backend.process(iCode, symTab);
         } catch (Exception ex) {
             System.out.println("***** Internal translator error. *****");
@@ -84,7 +94,7 @@ public class Pascal {
      */
     public static void main(String args[]) {
         try {
-            args = new String[] { "compile", "/home/toan/Dropbox/ws/wci/src/test/resources/hello.pas" };
+            args = new String[] { "compile", "-x", "/home/toan/Dropbox/ws/wci/src/test/resources/identifiers.pas" };
             String operation = args[0];
             // Operation.
             if (!(operation.equalsIgnoreCase("compile") || operation.equalsIgnoreCase("execute"))) {

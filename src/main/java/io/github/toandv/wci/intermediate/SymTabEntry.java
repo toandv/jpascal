@@ -7,7 +7,9 @@ public interface SymTabEntry {
 
     SymTab getSymTab();
 
-    List<Integer> getLinesNumber();
+    void appendLineNumber(int lineNumber);
+
+    List<Integer> getLineNumbers();
 
     void setAttribute(SymTabKey key, Object value);
 
