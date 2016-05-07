@@ -1,8 +1,9 @@
+
 package io.github.toandv.wci.frontend;
 
 /**
- * The Scanner reads characters from the Source program and constructs Tokens -Lexer
- * Scanner is a language-independent framework class.
+ * The Scanner reads characters from the Source program and constructs Tokens -Lexer Scanner is a language-independent
+ * framework class.
  * 
  * @author toandv
  * 

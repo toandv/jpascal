@@ -1,6 +1,8 @@
+
 package io.github.toandv.wci.intermediate.symtab;
 
 public interface SymTabStack {
+
     int getCurrentNestingLevel();
 
     /**
@@ -19,12 +21,15 @@ public interface SymTabStack {
 
     /**
      * Look up an existing symbol entry in the local symbol table (at the top of the stack)
+     * 
      * @param name
      * @return
      */
     SymTabEntry lookupLocal(String name);
+
     /**
      * Look up an existing entry throughout the stack
+     * 
      * @param name
      * @return
      */

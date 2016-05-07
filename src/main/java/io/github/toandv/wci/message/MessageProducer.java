@@ -1,6 +1,8 @@
+
 package io.github.toandv.wci.message;
 
 public interface MessageProducer {
+
     /**
      * Add a listener to the listener list.
      */

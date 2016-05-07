@@ -1,3 +1,4 @@
+
 package io.github.toandv.wci;
 
 import java.io.BufferedReader;
@@ -31,11 +32,17 @@ import io.github.toandv.wci.utils.CrossReferencer;
  * </p>
  */
 public class Pascal {
+
     private Parser parser; // language-independent parser
+
     private Source source; // language-independent scanner
+
     private ICode iCode; // generated intermediate code
+
     private SymTab symTab; // generated symbol table
+
     private SymTabStack symTabStack; // symbol table stack
+
     private Backend backend; // backend
 
     /**
@@ -83,16 +90,18 @@ public class Pascal {
     }
 
     private static final String FLAGS = "[-ix]";
+
     private static final String USAGE = "Usage: Pascal execute|compile " + FLAGS + " <source file path>";
 
     /**
      * The main method.
      * 
      * @param args
-     *            command-line arguments: "compile" or "execute" followed by
-     *            optional flags followed by the source file path.
+     *            command-line arguments: "compile" or "execute" followed by optional flags followed by the source file
+     *            path.
      */
     public static void main(String args[]) {
+
         try {
             args = new String[] { "compile", "-x", "/home/toan/Dropbox/ws/wci/src/test/resources/identifiers.pas" };
             String operation = args[0];
@@ -113,7 +122,8 @@ public class Pascal {
             if (i < args.length) {
                 String path = args[i];
                 new Pascal(operation, path, flags);
-            } else {
+            }
+            else {
                 throw new Exception();
             }
         } catch (Exception ex) {
@@ -127,6 +137,7 @@ public class Pascal {
      * Listener for source messages.
      */
     private class SourceMessageListener implements MessageListener {
+
         /**
          * Called by the source whenever it produces a message.
          * 
@@ -134,6 +145,7 @@ public class Pascal {
          *            the message.
          */
         public void messageReceived(Message message) {
+
             MessageType type = message.getType();
             Object body[] = (Object[]) message.getBody();
 
@@ -157,6 +169,7 @@ public class Pascal {
      * Listener for parser messages.
      */
     private class ParserMessageListener implements MessageListener {
+
         /**
          * Called by the parser whenever it produces a message.
          * 
@@ -164,6 +177,7 @@ public class Pascal {
          *            the message.
          */
         public void messageReceived(Message message) {
+
             MessageType type = message.getType();
 
             switch (type) {
@@ -191,6 +205,7 @@ public class Pascal {
      * Listener for back end messages.
      */
     private static class BackendMessageListener implements MessageListener {
+
         /**
          * Called by the back end whenever it produces a message.
          * 
@@ -198,6 +213,7 @@ public class Pascal {
          *            the message.
          */
         public void messageReceived(Message message) {
+
             MessageType type = message.getType();
 
             switch (type) {

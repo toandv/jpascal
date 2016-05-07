@@ -1,3 +1,4 @@
+
 package io.github.toandv.wci.frontend;
 
 import java.io.BufferedReader;
@@ -83,8 +84,7 @@ public class Source implements AutoCloseable, MessageProducer {
     }
 
     /**
-     * Return the source char following the current char without consuming the
-     * current char
+     * Return the source char following the current char without consuming the current char
      * 
      * @return the following char
      */

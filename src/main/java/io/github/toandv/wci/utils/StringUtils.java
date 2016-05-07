@@ -1,3 +1,4 @@
+
 package io.github.toandv.wci.utils;
 
 public class StringUtils {

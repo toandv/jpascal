@@ -1,3 +1,4 @@
+
 package io.github.toandv.wci.backend;
 
 import io.github.toandv.wci.intermediate.icode.ICode;
@@ -8,6 +9,7 @@ import io.github.toandv.wci.message.MessageListener;
 import io.github.toandv.wci.message.MessageProducer;
 
 public abstract class Backend implements MessageProducer {
+
     protected static MessageHandler messageHandler;
 
     protected SymTab symTab;

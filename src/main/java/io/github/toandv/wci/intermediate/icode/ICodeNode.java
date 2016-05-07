@@ -1,3 +1,4 @@
+
 package io.github.toandv.wci.intermediate.icode;
 
 public interface ICodeNode {
@@ -13,5 +14,4 @@ public interface ICodeNode {
     Object getAttribute();
 
     ICodeNode copy();
-
 }

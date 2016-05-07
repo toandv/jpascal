@@ -1,3 +1,4 @@
+
 package io.github.toandv.wci.utils;
 
 import java.util.List;
@@ -21,14 +22,19 @@ import io.github.toandv.wci.intermediate.symtab.SymTabStack;
  * </p>
  */
 public class CrossReferencer {
+
     private static final int NAME_WIDTH = 16;
 
     private static final String NAME_FORMAT = "%-" + NAME_WIDTH + "s";
+
     private static final String NUMBERS_LABEL = " Line numbers    ";
+
     private static final String NUMBERS_UNDERLINE = " ------------    ";
+
     private static final String NUMBER_FORMAT = " %03d";
 
     private static final int LABEL_WIDTH = NUMBERS_LABEL.length();
+
     private static final int INDENT_WIDTH = NAME_WIDTH + LABEL_WIDTH;
 
     private static final StringBuilder INDENT = new StringBuilder(INDENT_WIDTH);

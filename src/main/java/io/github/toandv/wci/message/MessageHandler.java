@@ -1,11 +1,14 @@
+
 package io.github.toandv.wci.message;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MessageHandler {
+
     // XXX mutable???
     private Message message;
+
     // message
     private List<MessageListener> listeners; // listener
 
@@ -40,8 +43,7 @@ public class MessageHandler {
     }
 
     /**
-     * Notify each listener in the listener list by calling the listener's
-     * messageReceived() method.
+     * Notify each listener in the listener list by calling the listener's messageReceived() method.
      */
     private void notifyListeners() {
         for (MessageListener listener : listeners) {

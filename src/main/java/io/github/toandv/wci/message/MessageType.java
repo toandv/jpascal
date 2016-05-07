@@ -1,3 +1,4 @@
+
 package io.github.toandv.wci.message;
 
 public enum MessageType {

@@ -1,11 +1,11 @@
+
 package io.github.toandv.wci.frontend;
 
 import io.github.toandv.wci.utils.JsonUtils;
 
 /**
- * Tokens are language elements such as reserved keywords, identifiers, or
- * special symbols The framework class that represents a token returned from the
- * Scanner
+ * Tokens are language elements such as reserved keywords, identifiers, or special symbols The framework class that
+ * represents a token returned from the Scanner
  * 
  * @author toandv
  *
@@ -33,12 +33,10 @@ public class Token {
     }
 
     /**
-     * Default method that extracts only one-character tokens from the source
-     * Language-specific subclasses should override this method to construct
-     * tokens
+     * Default method that extracts only one-character tokens from the source Language-specific subclasses should
+     * override this method to construct tokens
      * 
-     * After extracting the token, the current source line position will be one
-     * beyond the last token character
+     * After extracting the token, the current source line position will be one beyond the last token character
      * 
      * @throws Exception
      */
