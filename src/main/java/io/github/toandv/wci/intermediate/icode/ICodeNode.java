@@ -1,17 +1,21 @@
 
 package io.github.toandv.wci.intermediate.icode;
 
+import java.util.List;
+
 public interface ICodeNode {
 
     ICodeNode getParent();
 
     ICodeNodeType getType();
 
-    ICodeNode addChild();
+    ICodeNode addChild(ICodeNode child);
+    
+    List<ICodeNode> getChildren();
 
-    void setAttribute();
+    Object getAttribute(ICodeKey key);
 
-    Object getAttribute();
+    Object setAttribute(ICodeKey key, Object value);
 
     ICodeNode copy();
 }

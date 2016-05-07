@@ -41,4 +41,13 @@ public class SymTabImpl implements SymTab {
         return new ArrayList<>(entryMap.values());
     }
 
+    @Override
+    public int getNestingLevel() {
+        return nestingLevel;
+    }
+
+    public Map<String, SymTabEntry> getEntryMap() {
+        return entryMap;
+    }
+
 }

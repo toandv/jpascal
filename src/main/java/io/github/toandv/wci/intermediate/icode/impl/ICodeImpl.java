@@ -6,16 +6,17 @@ import io.github.toandv.wci.intermediate.icode.ICodeNode;
 
 public class ICodeImpl implements ICode {
 
+    private ICodeNode root;
+
     @Override
-    public ICodeNode setRoot() {
-        // TODO Auto-generated method stub
-        return null;
+    public ICodeNode setRoot(ICodeNode root) {
+        this.root = root;
+        return this.root;
     }
 
     @Override
     public ICodeNode getRoot() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.root;
     }
 
 }

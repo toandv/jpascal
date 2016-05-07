@@ -19,4 +19,5 @@ public enum SymTabKeyImpl implements SymTabKey {
 
     // Variable or record field value.
     DATA_VALUE
+
 }

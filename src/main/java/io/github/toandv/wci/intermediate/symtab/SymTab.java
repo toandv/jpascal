@@ -10,4 +10,6 @@ public interface SymTab {
     SymTabEntry lookup(String name);
 
     List<SymTabEntry> sortedEntries();
+
+    int getNestingLevel();
 }

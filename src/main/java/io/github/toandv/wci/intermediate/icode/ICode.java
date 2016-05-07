@@ -9,7 +9,7 @@ package io.github.toandv.wci.intermediate.icode;
  */
 public interface ICode {
 
-    ICodeNode setRoot();
+    ICodeNode setRoot(ICodeNode root);
 
     ICodeNode getRoot();
 
