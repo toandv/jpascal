@@ -74,8 +74,9 @@ public enum PascalTokenType implements TokenType {
 
     // Set of lower-cased Pascal reserved word text strings.
     // why not map ?
-    public static Map<String, PascalTokenType> RESERVED_WORDS = new HashMap<>();
+    public static Map<String, PascalTokenType> RESERVED_WORDS;
     static {
+        RESERVED_WORDS = new HashMap<>();
         PascalTokenType values[] = PascalTokenType.values();
         for (int i = FIRST_RESERVED_INDEX; i <= LAST_RESERVED_INDEX; ++i) {
             RESERVED_WORDS.put(values[i].getText(), values[i]);
@@ -86,8 +87,9 @@ public enum PascalTokenType implements TokenType {
 
     // Hash table of Pascal special symbols. Each special symbol's text
     // is the key to its Pascal token type.
-    public static Map<String, PascalTokenType> SPECIAL_SYMBOLS = new HashMap<>();
+    public static Map<String, PascalTokenType> SPECIAL_SYMBOLS;
     static {
+        SPECIAL_SYMBOLS = new HashMap<>();
         PascalTokenType values[] = PascalTokenType.values();
         for (int i = FIRST_SPECIAL_INDEX; i <= LAST_SPECIAL_INDEX; ++i) {
             SPECIAL_SYMBOLS.put(values[i].getText(), values[i]);
@@ -105,6 +107,10 @@ public enum PascalTokenType implements TokenType {
 
     public static PascalTokenType getSpecialSymbol(String key) {
         return SPECIAL_SYMBOLS.get(key);
+    }
+
+    public static boolean isSpecialSymbol(char currentChar) {
+        return SPECIAL_SYMBOLS.containsKey(Character.toString(currentChar));
     }
 
 }

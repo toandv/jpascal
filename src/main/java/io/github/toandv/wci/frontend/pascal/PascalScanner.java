@@ -40,7 +40,7 @@ public class PascalScanner extends Scanner {
             return new PascalStringToken(source);
         }
 
-        if (PascalTokenType.SPECIAL_SYMBOLS.containsKey(Character.toString(currentChar))) {
+        if (PascalTokenType.isSpecialSymbol(currentChar)) {
             return new PascalSpecialSymbolToken(source);
         }
 
