@@ -2,9 +2,9 @@ package io.github.toandv.wci.utils;
 
 import java.util.List;
 
-import io.github.toandv.wci.intermediate.SymTab;
-import io.github.toandv.wci.intermediate.SymTabEntry;
-import io.github.toandv.wci.intermediate.SymTabStack;
+import io.github.toandv.wci.intermediate.symtab.SymTab;
+import io.github.toandv.wci.intermediate.symtab.SymTabEntry;
+import io.github.toandv.wci.intermediate.symtab.SymTabStack;
 
 /**
  * <h1>CrossReferencer</h1>

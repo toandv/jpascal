@@ -1,9 +1,9 @@
 package io.github.toandv.wci.frontend;
 
-import io.github.toandv.wci.intermediate.ICode;
-import io.github.toandv.wci.intermediate.SymTab;
-import io.github.toandv.wci.intermediate.SymTabFactory;
-import io.github.toandv.wci.intermediate.SymTabStack;
+import io.github.toandv.wci.intermediate.icode.ICode;
+import io.github.toandv.wci.intermediate.symtab.SymTab;
+import io.github.toandv.wci.intermediate.symtab.SymTabFactory;
+import io.github.toandv.wci.intermediate.symtab.SymTabStack;
 import io.github.toandv.wci.message.Message;
 import io.github.toandv.wci.message.MessageHandler;
 import io.github.toandv.wci.message.MessageListener;

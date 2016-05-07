@@ -1,4 +1,4 @@
-package io.github.toandv.wci.intermediate;
+package io.github.toandv.wci.intermediate.symtab;
 
 import java.util.List;
 

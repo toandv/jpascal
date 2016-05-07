@@ -1,6 +1,6 @@
-package io.github.toandv.wci.intermediate.symtabimpl;
+package io.github.toandv.wci.intermediate.symtab.impl;
 
-import io.github.toandv.wci.intermediate.SymTabKey;
+import io.github.toandv.wci.intermediate.symtab.SymTabKey;
 
 public enum SymTabKeyImpl implements SymTabKey {
     // Constant.

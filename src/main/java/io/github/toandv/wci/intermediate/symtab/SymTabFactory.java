@@ -1,8 +1,8 @@
-package io.github.toandv.wci.intermediate;
+package io.github.toandv.wci.intermediate.symtab;
 
-import io.github.toandv.wci.intermediate.symtabimpl.SymTabEntryImpl;
-import io.github.toandv.wci.intermediate.symtabimpl.SymTabImpl;
-import io.github.toandv.wci.intermediate.symtabimpl.SymTabStackImpl;
+import io.github.toandv.wci.intermediate.symtab.impl.SymTabEntryImpl;
+import io.github.toandv.wci.intermediate.symtab.impl.SymTabImpl;
+import io.github.toandv.wci.intermediate.symtab.impl.SymTabStackImpl;
 
 public class SymTabFactory {
     public static final SymTabStack createSymTabStack() {

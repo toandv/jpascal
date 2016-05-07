@@ -1,8 +1,8 @@
 package io.github.toandv.wci.backend.compiler;
 
 import io.github.toandv.wci.backend.Backend;
-import io.github.toandv.wci.intermediate.ICode;
-import io.github.toandv.wci.intermediate.SymTab;
+import io.github.toandv.wci.intermediate.icode.ICode;
+import io.github.toandv.wci.intermediate.symtab.SymTab;
 import io.github.toandv.wci.message.Message;
 import io.github.toandv.wci.message.MessageType;
 
