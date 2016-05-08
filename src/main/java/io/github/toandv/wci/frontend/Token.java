@@ -59,7 +59,7 @@ public class Token {
         return source.peekChar();
     }
 
-    public int getLineNum() {
+    public int getLineNumber() {
         return lineNum;
     }
 

@@ -38,11 +38,35 @@ public enum PascalTokenType implements TokenType {
     IDENTIFIER("identifier"), INTEGER("integer"), REAL("real"), STRING("string"), ERROR("error"), END_OF_FILE(
             "end_of_file");
 
+    // Set of lower-cased Pascal reserved word text strings.
+    // why not map ?
+    public static final Map<String, PascalTokenType> RESERVED_WORDS;
+    // Hash table of Pascal special symbols. Each special symbol's text
+    // is the key to its Pascal token type.
+    public static final Map<String, PascalTokenType> SPECIAL_SYMBOLS;
     private static final int FIRST_RESERVED_INDEX = AND.ordinal();
     private static final int LAST_RESERVED_INDEX = WITH.ordinal();
-
     private static final int FIRST_SPECIAL_INDEX = PLUS.ordinal();
     private static final int LAST_SPECIAL_INDEX = DOT_DOT.ordinal();
+
+    static {
+        Map<String, PascalTokenType> MUTABLE_RESERVED_WORDS = new HashMap<>();
+        PascalTokenType values[] = PascalTokenType.values();
+        for (int i = FIRST_RESERVED_INDEX; i <= LAST_RESERVED_INDEX; ++i) {
+            MUTABLE_RESERVED_WORDS.put(values[i].getText(), values[i]);
+        }
+
+        RESERVED_WORDS = ImmutableMap.copyOf(MUTABLE_RESERVED_WORDS);
+    }
+
+    static {
+        Map<String, PascalTokenType> MUTABLE_SPECIAL_SYMBOLS = new HashMap<>();
+        PascalTokenType values[] = PascalTokenType.values();
+        for (int i = FIRST_SPECIAL_INDEX; i <= LAST_SPECIAL_INDEX; ++i) {
+            MUTABLE_SPECIAL_SYMBOLS.put(values[i].getText(), values[i]);
+        }
+        SPECIAL_SYMBOLS = ImmutableMap.copyOf(MUTABLE_SPECIAL_SYMBOLS);
+    }
 
     private String text; // token text
 
@@ -54,46 +78,11 @@ public enum PascalTokenType implements TokenType {
 
     /**
      * Constructor.
-     * 
-     * @param text
-     *            the token text.
+     *
+     * @param text the token text.
      */
     PascalTokenType(String text) {
         this.text = text;
-    }
-
-    /**
-     * Getter.
-     * 
-     * @return the token text.
-     */
-    public String getText() {
-        return text;
-    }
-
-    // Set of lower-cased Pascal reserved word text strings.
-    // why not map ?
-    public static Map<String, PascalTokenType> RESERVED_WORDS;
-    static {
-        RESERVED_WORDS = new HashMap<>();
-        PascalTokenType values[] = PascalTokenType.values();
-        for (int i = FIRST_RESERVED_INDEX; i <= LAST_RESERVED_INDEX; ++i) {
-            RESERVED_WORDS.put(values[i].getText(), values[i]);
-        }
-
-        RESERVED_WORDS = ImmutableMap.copyOf(RESERVED_WORDS);
-    }
-
-    // Hash table of Pascal special symbols. Each special symbol's text
-    // is the key to its Pascal token type.
-    public static Map<String, PascalTokenType> SPECIAL_SYMBOLS;
-    static {
-        SPECIAL_SYMBOLS = new HashMap<>();
-        PascalTokenType values[] = PascalTokenType.values();
-        for (int i = FIRST_SPECIAL_INDEX; i <= LAST_SPECIAL_INDEX; ++i) {
-            SPECIAL_SYMBOLS.put(values[i].getText(), values[i]);
-        }
-        SPECIAL_SYMBOLS = ImmutableMap.copyOf(SPECIAL_SYMBOLS);
     }
 
     public static PascalTokenType getReservedWord(String tokenText) {
@@ -110,6 +99,15 @@ public enum PascalTokenType implements TokenType {
 
     public static boolean isSpecialSymbol(char currentChar) {
         return SPECIAL_SYMBOLS.containsKey(Character.toString(currentChar));
+    }
+
+    /**
+     * Getter.
+     *
+     * @return the token text.
+     */
+    public String getText() {
+        return text;
     }
 
 }

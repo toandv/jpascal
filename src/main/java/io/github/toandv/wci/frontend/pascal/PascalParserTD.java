@@ -2,15 +2,17 @@
 package io.github.toandv.wci.frontend.pascal;
 
 import io.github.toandv.wci.frontend.*;
-import io.github.toandv.wci.intermediate.symtab.SymTabEntry;
+import io.github.toandv.wci.frontend.pascal.parsers.StatementParser;
+import io.github.toandv.wci.intermediate.icode.ICode;
+import io.github.toandv.wci.intermediate.icode.ICodeFactory;
+import io.github.toandv.wci.intermediate.icode.ICodeNode;
 import io.github.toandv.wci.message.Message;
 import io.github.toandv.wci.message.MessageType;
 
 /**
  * The top-down Pascal parser
- * 
- * @author toan
  *
+ * @author toan
  */
 public class PascalParserTD extends Parser {
 
@@ -20,48 +22,47 @@ public class PascalParserTD extends Parser {
         super(scanner);
     }
 
+    public PascalParserTD(PascalParserTD parent) {
+        super(parent.scanner);
+    }
+
     /**
      * Parse a Pascal program to generate the symbol table and the intermediate
      * code
      */
     @Override
     public void parse() throws Exception {
-        Token token;
         long startTime = System.currentTimeMillis();
+        ICode iCode = ICodeFactory.createICode();
         try {
-            // Loop over each token until the end of file.
-            while (!((token = nextToken()) instanceof EofToken)) {
-                TokenType tokenType = token.getType();
+            Token token = nextToken();
+            ICodeNode rootNode = null;
+            if (token.getType() == PascalTokenType.BEGIN) {
+                StatementParser statementParser = new StatementParser(this);
+                rootNode = statementParser.parse(token);
 
-                if (tokenType != PascalTokenType.ERROR) {
+                // update current token
+                token = currentToken();
 
-                    // Format each token.
-                    sendMessage(new Message(MessageType.TOKEN, new Object[] { token.getLineNum(), token.getPosition(),
-                            tokenType, token.getText(), token.getValue() }));
+            } else {
+                errorHandler.flag(token, PascalErrorCode.UNEXPECTED_TOKEN, this);
+            }
 
-                    // for now, only cross-reference identifiers
-                    if (tokenType == PascalTokenType.IDENTIFIER) {
-                        String name = token.getText().toLowerCase();
+            // look for final token, final period
+            if (token.getType() != PascalTokenType.DOT) {
+                errorHandler.flag(token, PascalErrorCode.MISSING_PERIOD, this);
+            }
 
-                        SymTabEntry entry = symTabStack.lookup(name);
-
-                        if (entry == null) {
-                            entry = symTabStack.enterLocal(name);
-                        }
-
-                        entry.appendLineNumber(token.getLineNum());
-                    }
-
-                } else {
-                    errorHandler.flag(token, (PascalErrorCode) token.getValue(), this);
-                }
-
+            token = currentToken();
+            // set the AST root node
+            if (rootNode != null) {
+                iCode.setRoot(rootNode);
             }
 
             // Send the parser summary message.
             float elapsedTime = (System.currentTimeMillis() - startTime) / 1000f;
             sendMessage(new Message(MessageType.PARSER_SUMMARY,
-                    new Number[] { token.getLineNum(), getErrorCount(), elapsedTime }));
+                    new Number[]{token.getLineNumber(), getErrorCount(), elapsedTime}));
         } catch (java.io.IOException ex) {
             errorHandler.abortTranslation(PascalErrorCode.IO_ERROR, this);
         }

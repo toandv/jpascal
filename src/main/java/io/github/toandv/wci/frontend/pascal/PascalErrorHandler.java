@@ -32,7 +32,7 @@ public class PascalErrorHandler {
     public void flag(Token token, PascalErrorCode errorCode, Parser parser) {
         // Notify the parser's listeners.
         parser.sendMessage(new Message(MessageType.SYNTAX_ERROR,
-                new Object[] { token.getLineNum(), token.getPosition(), token.getText(), errorCode.toString() }));
+                new Object[] { token.getLineNumber(), token.getPosition(), token.getText(), errorCode.toString() }));
 
         if (++errorCount > MAX_ERRORS) {
             abortTranslation(PascalErrorCode.TOO_MANY_ERRORS, parser);

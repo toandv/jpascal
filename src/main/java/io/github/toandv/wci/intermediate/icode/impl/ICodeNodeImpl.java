@@ -65,7 +65,6 @@ public class ICodeNodeImpl implements ICodeNode {
         ICodeNodeImpl node = new ICodeNodeImpl(this.type);
         // copy attributes
         node.attributeMap.putAll(this.attributeMap);
-
         // TODO
         // copy children
         // node.children.addAll(this.children);
