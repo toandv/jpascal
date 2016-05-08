@@ -3,6 +3,8 @@ package io.github.toandv.wci;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import io.github.toandv.wci.backend.Backend;
 import io.github.toandv.wci.backend.BackendFactory;
@@ -101,6 +103,13 @@ public class Pascal {
      *            path.
      */
     public static void main(String args[]) {
+        List<String> list = new ArrayList<>();
+        list.add("2");
+        String name = "22";
+        list.forEach(e -> {
+            System.out.println(name);
+            System.out.println(e);
+        });
 
         try {
             args = new String[] { "compile", "-x", "/home/toan/Dropbox/ws/wci/src/test/resources/identifiers.pas" };
