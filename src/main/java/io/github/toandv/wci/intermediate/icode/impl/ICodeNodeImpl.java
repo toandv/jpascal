@@ -71,7 +71,6 @@ public class ICodeNodeImpl implements ICodeNode {
         // node.children.addAll(this.children);
         // copy parent
         // node.parent = this.parent;
-        // TODO
         return node;
     }
 
