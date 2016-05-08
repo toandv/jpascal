@@ -1,11 +1,6 @@
 
 package io.github.toandv.wci;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
-
 import io.github.toandv.wci.backend.Backend;
 import io.github.toandv.wci.backend.BackendFactory;
 import io.github.toandv.wci.frontend.FrontendFactory;
@@ -18,6 +13,11 @@ import io.github.toandv.wci.message.Message;
 import io.github.toandv.wci.message.MessageListener;
 import io.github.toandv.wci.message.MessageType;
 import io.github.toandv.wci.utils.CrossReferencer;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <h1>Pascal</h1>

@@ -1,9 +1,10 @@
 package wci.frontend;
 
+import wci.message.*;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 
-import wci.message.*;
 import static wci.message.MessageType.SOURCE_LINE;
 
 /**

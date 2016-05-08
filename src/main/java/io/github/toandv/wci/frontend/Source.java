@@ -1,14 +1,10 @@
 
 package io.github.toandv.wci.frontend;
 
+import io.github.toandv.wci.message.*;
+
 import java.io.BufferedReader;
 import java.io.IOException;
-
-import io.github.toandv.wci.message.Message;
-import io.github.toandv.wci.message.MessageHandler;
-import io.github.toandv.wci.message.MessageListener;
-import io.github.toandv.wci.message.MessageProducer;
-import io.github.toandv.wci.message.MessageType;
 
 /**
  * 

@@ -1,12 +1,8 @@
 package wci.intermediate.icodeimpl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-
 import wci.intermediate.*;
+
+import java.util.*;
 
 /**
  * <h1>ICodeNodeImpl</h1>

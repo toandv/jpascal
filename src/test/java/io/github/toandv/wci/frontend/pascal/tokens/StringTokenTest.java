@@ -1,11 +1,10 @@
 package io.github.toandv.wci.frontend.pascal.tokens;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
-
 import io.github.toandv.wci.frontend.Token;
 import io.github.toandv.wci.frontend.pascal.PascalTokenType;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class StringTokenTest extends TokenBaseTest {
 

@@ -1,11 +1,11 @@
 package wci.intermediate.symtabimpl;
 
+import wci.intermediate.*;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.TreeMap;
-
-import wci.intermediate.*;
 
 /**
  * <h1>SymTabImpl</h1>

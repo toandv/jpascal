@@ -1,19 +1,14 @@
 package io.github.toandv.wci.frontend.pascal.tokens;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
+import io.github.toandv.wci.frontend.*;
+import io.github.toandv.wci.frontend.pascal.PascalParserTD;
+import io.github.toandv.wci.frontend.pascal.PascalScanner;
 import org.junit.After;
 import org.junit.Test;
 
-import io.github.toandv.wci.frontend.Parser;
-import io.github.toandv.wci.frontend.Scanner;
-import io.github.toandv.wci.frontend.Source;
-import io.github.toandv.wci.frontend.SourceTest;
-import io.github.toandv.wci.frontend.Token;
-import io.github.toandv.wci.frontend.pascal.PascalParserTD;
-import io.github.toandv.wci.frontend.pascal.PascalScanner;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public abstract class TokenBaseTest {
     Scanner scanner;

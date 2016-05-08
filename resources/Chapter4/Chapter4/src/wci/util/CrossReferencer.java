@@ -1,8 +1,9 @@
 package wci.util;
 
+import wci.intermediate.*;
+
 import java.util.ArrayList;
 
-import wci.intermediate.*;
 import static wci.intermediate.symtabimpl.SymTabKeyImpl.*;
 
 /**

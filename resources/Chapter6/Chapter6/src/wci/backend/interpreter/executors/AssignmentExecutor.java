@@ -1,14 +1,14 @@
 package wci.backend.interpreter.executors;
 
-import java.util.ArrayList;
-
+import wci.backend.interpreter.*;
 import wci.intermediate.*;
 import wci.intermediate.icodeimpl.*;
-import wci.backend.interpreter.*;
 import wci.message.*;
 
-import static wci.intermediate.symtabimpl.SymTabKeyImpl.*;
+import java.util.ArrayList;
+
 import static wci.intermediate.icodeimpl.ICodeKeyImpl.*;
+import static wci.intermediate.symtabimpl.SymTabKeyImpl.*;
 import static wci.message.MessageType.ASSIGN;
 
 /**

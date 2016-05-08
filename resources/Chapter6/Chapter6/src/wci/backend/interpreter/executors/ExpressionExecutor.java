@@ -1,16 +1,16 @@
 package wci.backend.interpreter.executors;
 
+import wci.backend.interpreter.*;
+import wci.intermediate.*;
+import wci.intermediate.icodeimpl.*;
+
 import java.util.ArrayList;
 import java.util.EnumSet;
 
-import wci.intermediate.*;
-import wci.intermediate.icodeimpl.*;
-import wci.backend.interpreter.*;
-
-import static wci.intermediate.symtabimpl.SymTabKeyImpl.*;
-import static wci.intermediate.icodeimpl.ICodeNodeTypeImpl.*;
-import static wci.intermediate.icodeimpl.ICodeKeyImpl.*;
 import static wci.backend.interpreter.RuntimeErrorCode.*;
+import static wci.intermediate.icodeimpl.ICodeKeyImpl.*;
+import static wci.intermediate.icodeimpl.ICodeNodeTypeImpl.*;
+import static wci.intermediate.symtabimpl.SymTabKeyImpl.*;
 
 /**
  * <h1>ExpressionExecutor</h1>

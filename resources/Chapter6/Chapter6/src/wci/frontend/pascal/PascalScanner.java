@@ -4,8 +4,8 @@ import wci.frontend.*;
 import wci.frontend.pascal.tokens.*;
 
 import static wci.frontend.Source.EOF;
-import static wci.frontend.pascal.PascalTokenType.*;
 import static wci.frontend.pascal.PascalErrorCode.*;
+import static wci.frontend.pascal.PascalTokenType.*;
 
 /**
  * <h1>PascalScanner</h1>

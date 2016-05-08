@@ -1,11 +1,11 @@
 
 package io.github.toandv.wci.utils;
 
-import java.util.List;
-
 import io.github.toandv.wci.intermediate.symtab.SymTab;
 import io.github.toandv.wci.intermediate.symtab.SymTabEntry;
 import io.github.toandv.wci.intermediate.symtab.SymTabStack;
+
+import java.util.List;
 
 /**
  * <h1>CrossReferencer</h1>

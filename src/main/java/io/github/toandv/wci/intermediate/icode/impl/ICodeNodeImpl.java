@@ -1,14 +1,14 @@
 
 package io.github.toandv.wci.intermediate.icode.impl;
 
+import io.github.toandv.wci.intermediate.icode.ICodeKey;
+import io.github.toandv.wci.intermediate.icode.ICodeNode;
+import io.github.toandv.wci.intermediate.icode.ICodeNodeType;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import io.github.toandv.wci.intermediate.icode.ICodeKey;
-import io.github.toandv.wci.intermediate.icode.ICodeNode;
-import io.github.toandv.wci.intermediate.icode.ICodeNodeType;
 
 public class ICodeNodeImpl implements ICodeNode {
 

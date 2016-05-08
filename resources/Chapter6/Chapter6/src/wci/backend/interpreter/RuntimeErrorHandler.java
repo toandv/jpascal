@@ -1,7 +1,7 @@
 package wci.backend.interpreter;
 
-import wci.intermediate.*;
 import wci.backend.Backend;
+import wci.intermediate.*;
 import wci.message.*;
 
 import static wci.intermediate.icodeimpl.ICodeKeyImpl.*;

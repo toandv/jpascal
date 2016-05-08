@@ -3,8 +3,8 @@ package wci.frontend.pascal;
 import wci.frontend.*;
 import wci.message.Message;
 
-import static wci.frontend.pascal.PascalTokenType.*;
 import static wci.frontend.pascal.PascalErrorCode.*;
+import static wci.frontend.pascal.PascalTokenType.*;
 import static wci.message.MessageType.SYNTAX_ERROR;
 
 /**

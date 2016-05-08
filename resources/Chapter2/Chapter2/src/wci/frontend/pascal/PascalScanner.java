@@ -1,6 +1,7 @@
 package wci.frontend.pascal;
 
 import wci.frontend.*;
+
 import static wci.frontend.Source.EOF;
 
 /**

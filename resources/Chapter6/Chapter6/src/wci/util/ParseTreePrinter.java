@@ -1,13 +1,13 @@
 package wci.util;
 
+import wci.intermediate.*;
+import wci.intermediate.icodeimpl.*;
+
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-import java.io.PrintStream;
-
-import wci.intermediate.*;
-import wci.intermediate.icodeimpl.*;
 
 /**
  * <h1>ParseTreePrinter</h1>

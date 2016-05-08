@@ -1,9 +1,9 @@
 package wci.frontend.pascal;
 
-import java.util.Hashtable;
-import java.util.HashSet;
-
 import wci.frontend.TokenType;
+
+import java.util.HashSet;
+import java.util.Hashtable;
 
 /**
  * <h1>PascalTokenType</h1>

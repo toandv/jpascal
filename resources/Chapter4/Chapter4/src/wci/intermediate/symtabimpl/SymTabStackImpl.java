@@ -1,8 +1,8 @@
 package wci.intermediate.symtabimpl;
 
-import java.util.ArrayList;
-
 import wci.intermediate.*;
+
+import java.util.ArrayList;
 
 /**
  * <h1>SymTabStack</h1>

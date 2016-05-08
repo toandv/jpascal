@@ -3,8 +3,8 @@ package wci.frontend.pascal.tokens;
 import wci.frontend.*;
 import wci.frontend.pascal.*;
 
-import static wci.frontend.pascal.PascalTokenType.*;
 import static wci.frontend.pascal.PascalErrorCode.*;
+import static wci.frontend.pascal.PascalTokenType.*;
 
 /**
  * <h1>PascalSpecialSymbolToken</h1>

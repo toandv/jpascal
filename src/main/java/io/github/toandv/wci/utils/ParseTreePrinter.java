@@ -1,11 +1,5 @@
 package io.github.toandv.wci.utils;
 
-import java.io.PrintStream;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import io.github.toandv.wci.intermediate.icode.ICode;
 import io.github.toandv.wci.intermediate.icode.ICodeFactory;
 import io.github.toandv.wci.intermediate.icode.ICodeKey;
@@ -14,6 +8,12 @@ import io.github.toandv.wci.intermediate.icode.impl.ICodeKeyImpl;
 import io.github.toandv.wci.intermediate.icode.impl.ICodeNodeImpl;
 import io.github.toandv.wci.intermediate.icode.impl.ICodeNodeTypeImpl;
 import io.github.toandv.wci.intermediate.symtab.SymTabEntry;
+
+import java.io.PrintStream;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class ParseTreePrinter {
 

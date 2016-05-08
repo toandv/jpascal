@@ -1,10 +1,10 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-
+import wci.backend.*;
 import wci.frontend.*;
 import wci.intermediate.*;
-import wci.backend.*;
 import wci.message.*;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 import static wci.frontend.pascal.PascalTokenType.STRING;
 import static wci.message.MessageType.*;

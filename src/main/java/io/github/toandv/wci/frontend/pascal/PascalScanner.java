@@ -4,11 +4,7 @@ import io.github.toandv.wci.frontend.EofToken;
 import io.github.toandv.wci.frontend.Scanner;
 import io.github.toandv.wci.frontend.Source;
 import io.github.toandv.wci.frontend.Token;
-import io.github.toandv.wci.frontend.pascal.tokens.PascalErrorToken;
-import io.github.toandv.wci.frontend.pascal.tokens.PascalNumberToken;
-import io.github.toandv.wci.frontend.pascal.tokens.PascalSpecialSymbolToken;
-import io.github.toandv.wci.frontend.pascal.tokens.PascalStringToken;
-import io.github.toandv.wci.frontend.pascal.tokens.PascalWordToken;
+import io.github.toandv.wci.frontend.pascal.tokens.*;
 
 public class PascalScanner extends Scanner {
 

@@ -1,9 +1,9 @@
 package wci.backend.interpreter.executors;
 
-import java.util.ArrayList;
-
-import wci.intermediate.*;
 import wci.backend.interpreter.*;
+import wci.intermediate.*;
+
+import java.util.ArrayList;
 
 /**
  * <h1>CompoundExecutor</h1>

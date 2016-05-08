@@ -5,8 +5,8 @@ import wci.frontend.pascal.parsers.*;
 import wci.intermediate.*;
 import wci.message.*;
 
-import static wci.frontend.pascal.PascalTokenType.*;
 import static wci.frontend.pascal.PascalErrorCode.*;
+import static wci.frontend.pascal.PascalTokenType.*;
 import static wci.message.MessageType.PARSER_SUMMARY;
 
 /**

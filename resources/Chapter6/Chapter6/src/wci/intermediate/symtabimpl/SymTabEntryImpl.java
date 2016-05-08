@@ -1,9 +1,9 @@
 package wci.intermediate.symtabimpl;
 
+import wci.intermediate.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import wci.intermediate.*;
 
 /**
  * <h1>SymTabEntryImpl</h1>

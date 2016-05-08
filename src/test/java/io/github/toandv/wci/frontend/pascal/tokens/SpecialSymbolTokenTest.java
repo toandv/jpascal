@@ -1,9 +1,8 @@
 package io.github.toandv.wci.frontend.pascal.tokens;
 
-import org.junit.Assert;
-
 import io.github.toandv.wci.frontend.Token;
 import io.github.toandv.wci.frontend.pascal.PascalTokenType;
+import org.junit.Assert;
 
 public class SpecialSymbolTokenTest extends TokenBaseTest {
 

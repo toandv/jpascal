@@ -1,13 +1,13 @@
 package io.github.toandv.wci.intermediate.symtab.impl;
 
+import io.github.toandv.wci.intermediate.symtab.SymTab;
+import io.github.toandv.wci.intermediate.symtab.SymTabEntry;
+import io.github.toandv.wci.intermediate.symtab.SymTabKey;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import io.github.toandv.wci.intermediate.symtab.SymTab;
-import io.github.toandv.wci.intermediate.symtab.SymTabEntry;
-import io.github.toandv.wci.intermediate.symtab.SymTabKey;
 
 public class SymTabEntryImpl implements SymTabEntry {
 

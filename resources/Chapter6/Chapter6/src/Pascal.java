@@ -1,11 +1,11 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-
+import wci.backend.*;
 import wci.frontend.*;
 import wci.intermediate.*;
-import wci.backend.*;
 import wci.message.*;
 import wci.util.*;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 import static wci.message.MessageType.*;
 

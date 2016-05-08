@@ -1,11 +1,7 @@
 
 package io.github.toandv.wci.frontend.pascal;
 
-import io.github.toandv.wci.frontend.EofToken;
-import io.github.toandv.wci.frontend.Parser;
-import io.github.toandv.wci.frontend.Scanner;
-import io.github.toandv.wci.frontend.Token;
-import io.github.toandv.wci.frontend.TokenType;
+import io.github.toandv.wci.frontend.*;
 import io.github.toandv.wci.intermediate.symtab.SymTabEntry;
 import io.github.toandv.wci.message.Message;
 import io.github.toandv.wci.message.MessageType;

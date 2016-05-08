@@ -1,7 +1,5 @@
 package wci.intermediate;
 
-import java.util.ArrayList;
-
 /**
  * <h1>SymTabStack</h1>
  *

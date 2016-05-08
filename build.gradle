@@ -1,0 +1,21 @@
+apply plugin: 'java'
+
+group = 'io.github.toandv'
+version = '0.0.1'
+
+description = """"""
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+
+repositories {
+    mavenCentral()
+}
+dependencies {
+    compile 'com.google.guava:guava:19.0'
+    compile 'ch.qos.logback:logback-classic:1.1.7'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.7.4'
+    testCompile 'junit:junit:4.12'
+}

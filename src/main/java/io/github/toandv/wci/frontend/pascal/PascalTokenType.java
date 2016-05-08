@@ -1,11 +1,10 @@
 package io.github.toandv.wci.frontend.pascal;
 
+import com.google.common.collect.ImmutableMap;
+import io.github.toandv.wci.frontend.TokenType;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import com.google.common.collect.ImmutableMap;
-
-import io.github.toandv.wci.frontend.TokenType;
 
 public enum PascalTokenType implements TokenType {
     // Reserved words.

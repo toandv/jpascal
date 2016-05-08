@@ -1,9 +1,9 @@
 package wci.backend.interpreter;
 
-import wci.intermediate.*;
-import wci.intermediate.icodeimpl.*;
 import wci.backend.*;
 import wci.backend.interpreter.executors.*;
+import wci.intermediate.*;
+import wci.intermediate.icodeimpl.*;
 import wci.message.*;
 
 import static wci.intermediate.icodeimpl.ICodeNodeTypeImpl.*;
