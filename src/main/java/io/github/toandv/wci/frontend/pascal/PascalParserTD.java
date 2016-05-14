@@ -33,7 +33,7 @@ public class PascalParserTD extends Parser {
     @Override
     public void parse() throws Exception {
         long startTime = System.currentTimeMillis();
-        ICode iCode = ICodeFactory.createICode();
+        iCode = ICodeFactory.createICode();
         try {
             Token token = nextToken();
             ICodeNode rootNode = null;
@@ -41,20 +41,19 @@ public class PascalParserTD extends Parser {
                 StatementParser statementParser = new StatementParser(this);
                 rootNode = statementParser.parse(token);
 
-                // update current token
+                // Update current token.
                 token = currentToken();
-
             } else {
                 errorHandler.flag(token, PascalErrorCode.UNEXPECTED_TOKEN, this);
             }
 
-            // look for final token, final period
+            // Look for final token, final period.
             if (token.getType() != PascalTokenType.DOT) {
                 errorHandler.flag(token, PascalErrorCode.MISSING_PERIOD, this);
             }
 
             token = currentToken();
-            // set the AST root node
+            // Set the AST root node.
             if (rootNode != null) {
                 iCode.setRoot(rootNode);
             }

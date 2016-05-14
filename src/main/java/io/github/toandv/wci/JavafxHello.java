@@ -1,19 +1,17 @@
 package io.github.toandv.wci;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-import static javafx.application.Application.launch;
-
 /**
  * Created by toan on 5/8/16.
  */
+@SuppressWarnings("restriction")
 public class JavafxHello extends Application {
+
     public static void main(String[] args) {
         launch(args);
     }

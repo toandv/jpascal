@@ -1,13 +1,15 @@
 package io.github.toandv.wci.frontend.pascal.parsers;
 
+import static io.github.toandv.wci.frontend.pascal.PascalErrorCode.MISSING_COLON_EQUALS;
+import static io.github.toandv.wci.frontend.pascal.PascalTokenType.COLON_EQUALS;
+import static io.github.toandv.wci.intermediate.icode.impl.ICodeKeyImpl.ID;
+import static io.github.toandv.wci.intermediate.icode.impl.ICodeNodeTypeImpl.ASSIGN;
+import static io.github.toandv.wci.intermediate.icode.impl.ICodeNodeTypeImpl.VARIABLE;
+
 import io.github.toandv.wci.frontend.Scanner;
 import io.github.toandv.wci.frontend.Token;
-import io.github.toandv.wci.frontend.pascal.PascalErrorCode;
-import io.github.toandv.wci.frontend.pascal.PascalTokenType;
 import io.github.toandv.wci.intermediate.icode.ICodeFactory;
 import io.github.toandv.wci.intermediate.icode.ICodeNode;
-import io.github.toandv.wci.intermediate.icode.impl.ICodeKeyImpl;
-import io.github.toandv.wci.intermediate.icode.impl.ICodeNodeTypeImpl;
 import io.github.toandv.wci.intermediate.symtab.SymTabEntry;
 
 /**
@@ -25,38 +27,36 @@ public class AssignmentStatementParser extends StatementParser {
 
     @Override
     public ICodeNode parse(Token token) throws Exception {
-        ICodeNode assignNode = ICodeFactory.createICodeNode(ICodeNodeTypeImpl.ASSIGN);
+        ICodeNode assignNode = ICodeFactory.createICodeNode(ASSIGN);
 
-        // look up identifier from SymTabStack
+        // Look up identifier from SymTabStack.
         String targetName = token.getText().toString();
         SymTabEntry targetId = symTabStack.lookup(targetName);
         if (targetId == null) {
-            // not existing, enter new id
+            // If not existing, enter new id.
             targetId = symTabStack.enterLocal(targetName);
         }
         targetId.appendLineNumber(token.getLineNumber());
 
-        token = nextToken(); // consume the identifier token, variable name
+        token = nextToken(); // Consume the identifier token, variable name.
 
-        // create a var node, and set its name
-
-        ICodeNode variableNode = ICodeFactory.createICodeNode(ICodeNodeTypeImpl.VARIABLE);
-        variableNode.setAttribute(ICodeKeyImpl.ID, targetId);
+        // Create a var node, and set its name.
+        ICodeNode variableNode = ICodeFactory.createICodeNode(VARIABLE);
+        variableNode.setAttribute(ID, targetId);
 
         assignNode.addChild(variableNode);
 
-        if (token.getType() == PascalTokenType.COLON_EQUALS) {
-            token = nextToken(); // consume :=
+        if (token.getType() == COLON_EQUALS) {
+            token = nextToken(); // Consume := token.
         }
         else {
-            errorHandler.flag(token, PascalErrorCode.MISSING_COLON_EQUALS, this);
+            errorHandler.flag(token, MISSING_COLON_EQUALS, this);
         }
 
-        // parse the expression
-        ExpressionParser  expressionParser = new ExpressionParser(this);
-        ICodeNode expresisonNode = expressionParser.parse(token);
-        assignNode.addChild(expresisonNode);
-
+        // Parse the expression.
+        ExpressionParser expressionParser = new ExpressionParser(this);
+        ICodeNode expressionNode = expressionParser.parse(token);
+        assignNode.addChild(expressionNode);
         return assignNode;
     }
 }

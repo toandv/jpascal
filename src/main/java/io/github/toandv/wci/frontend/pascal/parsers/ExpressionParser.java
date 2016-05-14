@@ -1,7 +1,6 @@
 package io.github.toandv.wci.frontend.pascal.parsers;
 
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import io.github.toandv.wci.frontend.Scanner;
 import io.github.toandv.wci.frontend.Token;
@@ -11,14 +10,20 @@ import io.github.toandv.wci.intermediate.icode.ICodeFactory;
 import io.github.toandv.wci.intermediate.icode.ICodeNode;
 import io.github.toandv.wci.intermediate.icode.ICodeNodeType;
 import io.github.toandv.wci.intermediate.icode.impl.ICodeNodeTypeImpl;
+import io.github.toandv.wci.intermediate.symtab.SymTabEntry;
 
-import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import static io.github.toandv.wci.frontend.pascal.PascalErrorCode.IDENTIFIER_UNDEFINED;
+import static io.github.toandv.wci.frontend.pascal.PascalErrorCode.MISSING_RIGHT_PAREN;
+import static io.github.toandv.wci.frontend.pascal.PascalErrorCode.UNEXPECTED_TOKEN;
 import static io.github.toandv.wci.frontend.pascal.PascalTokenType.*;
+import static io.github.toandv.wci.intermediate.icode.impl.ICodeKeyImpl.ID;
+import static io.github.toandv.wci.intermediate.icode.impl.ICodeKeyImpl.VALUE;
 import static io.github.toandv.wci.intermediate.icode.impl.ICodeNodeTypeImpl.*;
+import static io.github.toandv.wci.intermediate.icode.impl.ICodeNodeTypeImpl.NOT;
 
 /**
  * Created by toan on 5/8/16.
@@ -82,37 +87,31 @@ public class ExpressionParser extends StatementParser {
 
     @Override
     public ICodeNode parse(Token token) throws Exception {
-        return parseExpresison(token);
+        return parseExpression(token);
     }
 
-    private ICodeNode parseExpresison(Token token) throws Exception {
-        // Parse a simple expresison make it root of its tree.
+    private ICodeNode parseExpression(Token token) throws Exception {
+        // Parse a simple expression make it root of its tree.
         ICodeNode rootNode = parseSimpleExpresison(token);
-
         token = currentToken(); // Update current token.
 
         // Look for relation operator.
-
         if (REL_OPS.contains(token.getText())) {
             ICodeNodeType opNodeType = REL_OPS_MAP.get(token.getType());
             ICodeNode opNode = ICodeFactory.createICodeNode(opNodeType);
-            opNode.addChild(rootNode);
 
+            opNode.addChild(rootNode);
             token = nextToken(); // Consume the operator token.
 
             // Parse the second simple expression.
             opNode.addChild(parseSimpleExpresison(token));
-
             rootNode = opNode;
         }
-
         return rootNode;
     }
 
     private ICodeNode parseSimpleExpresison(Token token) throws Exception {
-
-        // Example: alpha + 3 + beta - 5
-
+        // Example: alpha + 3 + beta - 5.
         TokenType signType = null;
 
         // Look for leading + or - sign.
@@ -141,7 +140,7 @@ public class ExpressionParser extends StatementParser {
 
             token = nextToken(); // Consume the operator.
 
-            // Parse another term.
+            // Parse another factor.
             opNode.addChild(parseTerm(token));
 
             // The operator node becomes the root node.
@@ -167,7 +166,7 @@ public class ExpressionParser extends StatementParser {
             token = nextToken(); // Consume op node.
 
             // Parse another term.
-            opNode.addChild(parseTerm(token));
+            opNode.addChild(parseFactor(token));
 
             rootNode = opNode;
 
@@ -176,18 +175,65 @@ public class ExpressionParser extends StatementParser {
         return rootNode;
     }
 
-    private ICodeNode parseFactor(Token token) {
-
+    private ICodeNode parseFactor(Token token) throws Exception {
         ICodeNode rootNode = null;
-
         switch ((PascalTokenType) token.getType()) {
             case IDENTIFIER:
+                // look up the identifier in the symbol table.
+                String name = token.getText().toLowerCase();
+                SymTabEntry id = symTabStack.lookup(name);
+                if (id == null) {
+                    errorHandler.flag(token, IDENTIFIER_UNDEFINED, this);
+                    id = symTabStack.enterLocal(name);
+                }
+                rootNode = ICodeFactory.createICodeNode(VARIABLE);
+                rootNode.setAttribute(ID, id);
+                id.appendLineNumber(token.getLineNumber());
+                token = nextToken();
+                break;
+            case INTEGER:
+                // Create an INTEGER_CONSTANT node as the root.
+                rootNode = ICodeFactory.createICodeNode(INTEGER_CONSTANT);
+                rootNode.setAttribute(VALUE, token.getValue());
+                token = nextToken();
+                break;
+            case REAL:
+                // Create an REAL_CONSTANT node as the root.
+                rootNode = ICodeFactory.createICodeNode(REAL_CONSTANT);
+                rootNode.setAttribute(VALUE, token.getValue());
+                token = nextToken();
+                break;
+            case STRING:
+                // Create an STRING_CONSTANT node as the root.
+                rootNode = ICodeFactory.createICodeNode(STRING_CONSTANT);
+                rootNode.setAttribute(VALUE, token.getValue());
+                token = nextToken();
+                break;
+            case NOT:
+                token = nextToken(); // Consume the NOT token.
 
-
+                // Create an NOT node as the root.
+                rootNode = ICodeFactory.createICodeNode(NOT);
+                // Parse the child factor and add to the root
+                rootNode.addChild(parseFactor(token));
+                break;
+            case LEFT_PAREN:
+                token = nextToken(); // Consume the (.
+                // Parse an expression and make it the root.
+                rootNode = parseExpression(token);
+                // Look for the matching ) token
+                token = currentToken();
+                if (token.getType() == RIGHT_PAREN) {
+                    token = nextToken(); // Consume the matching ) token.
+                } else {
+                    errorHandler.flag(token, MISSING_RIGHT_PAREN, this);
+                }
+                break;
+            default:
+                errorHandler.flag(token, UNEXPECTED_TOKEN, this);
+                break;
         }
-
-
-        return null;
+        return rootNode;
     }
 
 }

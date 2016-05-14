@@ -1,5 +1,11 @@
 package io.github.toandv.wci.frontend.pascal.parsers;
 
+import static io.github.toandv.wci.frontend.pascal.PascalErrorCode.MISSING_SEMICOLON;
+import static io.github.toandv.wci.frontend.pascal.PascalErrorCode.UNEXPECTED_TOKEN;
+import static io.github.toandv.wci.frontend.pascal.PascalTokenType.IDENTIFIER;
+import static io.github.toandv.wci.frontend.pascal.PascalTokenType.SEMICOLON;
+import static io.github.toandv.wci.intermediate.icode.impl.ICodeKeyImpl.LINE;
+
 import io.github.toandv.wci.frontend.EofToken;
 import io.github.toandv.wci.frontend.Scanner;
 import io.github.toandv.wci.frontend.Token;
@@ -8,7 +14,6 @@ import io.github.toandv.wci.frontend.pascal.PascalParserTD;
 import io.github.toandv.wci.frontend.pascal.PascalTokenType;
 import io.github.toandv.wci.intermediate.icode.ICodeFactory;
 import io.github.toandv.wci.intermediate.icode.ICodeNode;
-import io.github.toandv.wci.intermediate.icode.impl.ICodeKeyImpl;
 import io.github.toandv.wci.intermediate.icode.impl.ICodeNodeTypeImpl;
 
 /**
@@ -27,58 +32,56 @@ public class StatementParser extends PascalParserTD {
     public ICodeNode parse(Token token) throws Exception {
         ICodeNode statementNode = null;
         switch ((PascalTokenType) token.getType()) {
-            case BEGIN:
-                CompoundStatementParser compoundStatementParser = new CompoundStatementParser(this);
-                statementNode = compoundStatementParser.parse(token);
-                break;
-            case IDENTIFIER:
-                AssignmentStatementParser assignmentStatementParser = new AssignmentStatementParser(this);
-                statementNode = assignmentStatementParser.parse(token);
-                break;
-            default:
-                statementNode = ICodeFactory.createICodeNode(ICodeNodeTypeImpl.NO_OP);
-                break;
+        case BEGIN:
+            CompoundStatementParser compoundStatementParser = new CompoundStatementParser(this);
+            statementNode = compoundStatementParser.parse(token);
+            break;
+        case IDENTIFIER:
+            AssignmentStatementParser assignmentStatementParser = new AssignmentStatementParser(this);
+            statementNode = assignmentStatementParser.parse(token);
+            break;
+        default:
+            statementNode = ICodeFactory.createICodeNode(ICodeNodeTypeImpl.NO_OP);
+            break;
         }
         setLineNumber(statementNode, token);
         return statementNode;
     }
 
-    protected void pareList(Token token, ICodeNode parentNode, PascalTokenType terminator, PascalErrorCode errorCode) throws Exception {
+    protected void pareList(Token token, ICodeNode parentNode, PascalTokenType terminator, PascalErrorCode errorCode)
+            throws Exception {
         while (token.getType() != terminator && !(token instanceof EofToken)) {
-            // parse child and add to parent
+            // Parse child and add to parent.
             ICodeNode statementToken = parse(token);
             parentNode.addChild(statementToken);
-
             token = currentToken();
 
-            // look for semicolon between statements.
-            if (token.getType() == PascalTokenType.SEMICOLON) {
-                token = nextToken(); // consume semicolon
+            // Look for semicolon between statements.
+            if (token.getType() == SEMICOLON) {
+                token = nextToken(); // Consume semicolon.
             }
-            // missing semicolon
-            else if (token.getType() == PascalTokenType.IDENTIFIER) {
-                errorHandler.flag(token, PascalErrorCode.MISSING_SEMICOLON, this);
+            // Missing semicolon.
+            else if (token.getType() == IDENTIFIER) {
+                errorHandler.flag(token, MISSING_SEMICOLON, this);
             }
-            // unexpected token
+            // Unexpected token.
             else if (token.getType() != terminator) {
-                errorHandler.flag(token, PascalErrorCode.UNEXPECTED_TOKEN, this);
-                token = nextToken(); // consume
+                errorHandler.flag(token, UNEXPECTED_TOKEN, this);
+                token = nextToken(); // Consume.
             }
-
-            // look for terminator
-            if (token.getType() == terminator) {
-                token = nextToken(); // consume
-            }
-            else {
-                errorHandler.flag(token, errorCode, this);
-            }
+            // Look for the terminator.
+        }
+        if (token.getType() == terminator) {
+            token = nextToken(); // Consume.
+        } else {
+            errorHandler.flag(token, errorCode, this);
         }
 
     }
 
     protected void setLineNumber(ICodeNode node, Token token) {
         if (node != null) {
-            node.setAttribute(ICodeKeyImpl.LINE, token.getLineNumber());
+            node.setAttribute(LINE, token.getLineNumber());
         }
     }
 

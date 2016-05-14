@@ -159,6 +159,8 @@ public class PascalNumberToken extends PascalToken {
             // consume
             textBuffer.append('.');
             nextChar();
+        } else {
+            return "";
         }
         return extractDigits(textBuffer);
     }
