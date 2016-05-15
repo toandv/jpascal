@@ -6,6 +6,7 @@ import io.github.toandv.wci.message.Message;
 import io.github.toandv.wci.message.MessageType;
 
 public class PascalErrorHandler {
+
     private static final int MAX_ERRORS = 25;
 
     // Why static??
@@ -27,6 +28,7 @@ public class PascalErrorHandler {
 
     /**
      * Abort the translation.
+     * 
      * @param errorCode the error code.
      * @param parser the parser.
      */

@@ -96,7 +96,7 @@ public class ExpressionParser extends StatementParser {
         token = currentToken(); // Update current token.
 
         // Look for relation operator.
-        if (REL_OPS.contains(token.getText())) {
+        if (REL_OPS.contains(token.getType())) {
             ICodeNodeType opNodeType = REL_OPS_MAP.get(token.getType());
             ICodeNode opNode = ICodeFactory.createICodeNode(opNodeType);
 

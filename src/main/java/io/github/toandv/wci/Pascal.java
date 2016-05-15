@@ -96,7 +96,8 @@ public class Pascal {
             if (i < args.length) {
                 String path = args[i];
                 new Pascal(operation, path, flags);
-            } else {
+            }
+            else {
                 throw new Exception();
             }
         } catch (Exception ex) {
@@ -104,19 +105,20 @@ public class Pascal {
         }
     }
 
-    private static class JsonFormatMessageListner implements MessageListener {
+    private static class JsonFormatMessageListener implements MessageListener {
+
         @Override
         public void messageReceived(Message message) {
             System.out.println(JSONUtils.toJson(message));
         }
     }
 
-    private static class BackendMessageListener extends JsonFormatMessageListner {
+    private static class BackendMessageListener extends JsonFormatMessageListener {
     }
 
-    private class SourceMessageListener extends JsonFormatMessageListner {
+    private class SourceMessageListener extends JsonFormatMessageListener {
     }
 
-    private class ParserMessageListener extends JsonFormatMessageListner {
+    private class ParserMessageListener extends JsonFormatMessageListener {
     }
 }

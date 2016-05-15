@@ -7,7 +7,10 @@ BEGIN
         centigrade := 25;
         fahrenheit := centigrade/ratio + 32;
         centigrade := 25;
-        fahrenheit := 32 + centigrade/ratio
+        fahrenheit := 32 + centigrade/ratio;
+        a := 1;
+        b := 2;
+        c := a > b
     END;
 
     {Runtime division by zero error.}
