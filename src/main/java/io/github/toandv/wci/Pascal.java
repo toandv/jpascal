@@ -1,8 +1,4 @@
-
 package io.github.toandv.wci;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
 
 import io.github.toandv.wci.backend.Backend;
 import io.github.toandv.wci.backend.BackendFactory;
@@ -15,8 +11,11 @@ import io.github.toandv.wci.intermediate.symtab.SymTabStack;
 import io.github.toandv.wci.message.Message;
 import io.github.toandv.wci.message.MessageListener;
 import io.github.toandv.wci.utils.CrossReferencer;
-import io.github.toandv.wci.utils.JsonUtils;
-import io.github.toandv.wci.utils.ParseTreePrinter;
+import io.github.toandv.wci.utils.JSONUtils;
+import io.github.toandv.wci.utils.XMLParseTreePrinter;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 public class Pascal {
 
@@ -64,7 +63,7 @@ public class Pascal {
                 }
 
                 if (intermediate) {
-                    ParseTreePrinter treePrinter = new ParseTreePrinter(System.out);
+                    XMLParseTreePrinter treePrinter = new XMLParseTreePrinter(System.out);
                     treePrinter.print(iCode);
                 }
 
@@ -78,7 +77,7 @@ public class Pascal {
 
     public static void main(String args[]) {
         try {
-            args = new String[] { "compile", "-ix", "/home/toan/Study/Dropbox/WS/wci/src/test/resources/assignments" };
+            args = new String[] { "compile", "-ix", "/home/toan/Dropbox/ws/wci/src/test/resources/assignments" };
             String operation = args[0];
             // Operation.
             if (!(operation.equalsIgnoreCase("compile") || operation.equalsIgnoreCase("execute"))) {
@@ -108,7 +107,7 @@ public class Pascal {
     private static class JsonFormatMessageListner implements MessageListener {
         @Override
         public void messageReceived(Message message) {
-            System.out.println(JsonUtils.toJson(message));
+            System.out.println(JSONUtils.toJson(message));
         }
     }
 

@@ -1,11 +1,5 @@
 package io.github.toandv.wci.frontend.pascal.parsers;
 
-import static io.github.toandv.wci.frontend.pascal.PascalErrorCode.MISSING_SEMICOLON;
-import static io.github.toandv.wci.frontend.pascal.PascalErrorCode.UNEXPECTED_TOKEN;
-import static io.github.toandv.wci.frontend.pascal.PascalTokenType.IDENTIFIER;
-import static io.github.toandv.wci.frontend.pascal.PascalTokenType.SEMICOLON;
-import static io.github.toandv.wci.intermediate.icode.impl.ICodeKeyImpl.LINE;
-
 import io.github.toandv.wci.frontend.EofToken;
 import io.github.toandv.wci.frontend.Scanner;
 import io.github.toandv.wci.frontend.Token;
@@ -15,6 +9,12 @@ import io.github.toandv.wci.frontend.pascal.PascalTokenType;
 import io.github.toandv.wci.intermediate.icode.ICodeFactory;
 import io.github.toandv.wci.intermediate.icode.ICodeNode;
 import io.github.toandv.wci.intermediate.icode.impl.ICodeNodeTypeImpl;
+
+import static io.github.toandv.wci.frontend.pascal.PascalErrorCode.MISSING_SEMICOLON;
+import static io.github.toandv.wci.frontend.pascal.PascalErrorCode.UNEXPECTED_TOKEN;
+import static io.github.toandv.wci.frontend.pascal.PascalTokenType.IDENTIFIER;
+import static io.github.toandv.wci.frontend.pascal.PascalTokenType.SEMICOLON;
+import static io.github.toandv.wci.intermediate.icode.impl.ICodeKeyImpl.LINE;
 
 /**
  * Created by toan on 5/8/16.
@@ -30,19 +30,19 @@ public class StatementParser extends PascalParserTD {
     }
 
     public ICodeNode parse(Token token) throws Exception {
-        ICodeNode statementNode = null;
+        ICodeNode statementNode;
         switch ((PascalTokenType) token.getType()) {
-        case BEGIN:
-            CompoundStatementParser compoundStatementParser = new CompoundStatementParser(this);
-            statementNode = compoundStatementParser.parse(token);
-            break;
-        case IDENTIFIER:
-            AssignmentStatementParser assignmentStatementParser = new AssignmentStatementParser(this);
-            statementNode = assignmentStatementParser.parse(token);
-            break;
-        default:
-            statementNode = ICodeFactory.createICodeNode(ICodeNodeTypeImpl.NO_OP);
-            break;
+            case BEGIN:
+                CompoundStatementParser compoundStatementParser = new CompoundStatementParser(this);
+                statementNode = compoundStatementParser.parse(token);
+                break;
+            case IDENTIFIER:
+                AssignmentStatementParser assignmentStatementParser = new AssignmentStatementParser(this);
+                statementNode = assignmentStatementParser.parse(token);
+                break;
+            default:
+                statementNode = ICodeFactory.createICodeNode(ICodeNodeTypeImpl.NO_OP);
+                break;
         }
         setLineNumber(statementNode, token);
         return statementNode;
@@ -72,11 +72,10 @@ public class StatementParser extends PascalParserTD {
             // Look for the terminator.
         }
         if (token.getType() == terminator) {
-            token = nextToken(); // Consume.
+            nextToken(); // Consume.
         } else {
             errorHandler.flag(token, errorCode, this);
         }
-
     }
 
     protected void setLineNumber(ICodeNode node, Token token) {

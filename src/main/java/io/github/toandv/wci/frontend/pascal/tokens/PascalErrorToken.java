@@ -8,7 +8,6 @@ public class PascalErrorToken extends PascalToken {
 
     public PascalErrorToken(Source source, PascalErrorCode errorCode, String tokenText) throws Exception {
         super(source);
-
         this.type = PascalTokenType.ERROR;
         this.text = tokenText;
         this.value = errorCode;

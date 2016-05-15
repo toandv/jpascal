@@ -14,15 +14,15 @@ import io.github.toandv.wci.message.MessageProducer;
  * The Parser controls the translation process in the front end. It repeatedly asks the Scanner for the next Token and
  * it analyzes the sequences of tokens to determine what high-level language elements it's translating such as
  * arithmetic expressions, function or procedure declarations, and assignment statements;
- * 
+ * <p>
  * The Parser also verifies the syntax of the language elements written in the source program.
- * 
+ * <p>
  * In general, the Parser parses the source program and translates it.The Parser owns the Scanner and requests for
  * tokens.
- * 
+ * <p>
  * The Parser is a language-independent framework class, this abstract methods should be implemented by
  * language-specific subclasses
- * 
+ *
  * @author toandv
  * @since 2016/04/10
  */

@@ -1,9 +1,10 @@
 
 package io.github.toandv.wci.frontend.pascal;
 
-import io.github.toandv.wci.frontend.*;
+import io.github.toandv.wci.frontend.Parser;
+import io.github.toandv.wci.frontend.Scanner;
+import io.github.toandv.wci.frontend.Token;
 import io.github.toandv.wci.frontend.pascal.parsers.StatementParser;
-import io.github.toandv.wci.intermediate.icode.ICode;
 import io.github.toandv.wci.intermediate.icode.ICodeFactory;
 import io.github.toandv.wci.intermediate.icode.ICodeNode;
 import io.github.toandv.wci.message.Message;

@@ -1,0 +1,112 @@
+<COMPOUND line="1">
+    <COMPOUND line="2">
+        <ASSIGN line="3">
+            <VARIABLE id="five" level="0" />
+            <ADD>
+                <ADD>
+                    <SUBTRACT>
+                        <ADD>
+                            <NEGATE>
+                                <INTEGER_CONSTANT value="1" />
+                            </NEGATE>
+                            <INTEGER_CONSTANT value="2" />
+                        </ADD>
+                        <INTEGER_CONSTANT value="3" />
+                    </SUBTRACT>
+                    <INTEGER_CONSTANT value="4" />
+                </ADD>
+                <INTEGER_CONSTANT value="3" />
+            </ADD>
+        </ASSIGN>
+        <ASSIGN line="4">
+            <VARIABLE id="ratio" level="0" />
+            <FLOAT_DIVIDE>
+                <VARIABLE id="five" level="0" />
+                <REAL_CONSTANT value="9.0" />
+            </FLOAT_DIVIDE>
+        </ASSIGN>
+        <ASSIGN line="5">
+            <VARIABLE id="fahrenheit" level="0" />
+            <INTEGER_CONSTANT value="72" />
+        </ASSIGN>
+        <ASSIGN line="6">
+            <VARIABLE id="centigrade" level="0" />
+            <MULTIPLY>
+                <SUBTRACT>
+                    <VARIABLE id="fahrenheit" level="0" />
+                    <INTEGER_CONSTANT value="32" />
+                </SUBTRACT>
+                <VARIABLE id="ratio" level="0" />
+            </MULTIPLY>
+        </ASSIGN>
+        <ASSIGN line="7">
+            <VARIABLE id="centigrade" level="0" />
+            <INTEGER_CONSTANT value="25" />
+        </ASSIGN>
+        <ASSIGN line="8">
+            <VARIABLE id="fahrenheit" level="0" />
+            <ADD>
+                <FLOAT_DIVIDE>
+                    <VARIABLE id="centigrade" level="0" />
+                    <VARIABLE id="ratio" level="0" />
+                </FLOAT_DIVIDE>
+                <INTEGER_CONSTANT value="32" />
+            </ADD>
+        </ASSIGN>
+        <ASSIGN line="9">
+            <VARIABLE id="centigrade" level="0" />
+            <INTEGER_CONSTANT value="25" />
+        </ASSIGN>
+        <ASSIGN line="10">
+            <VARIABLE id="fahrenheit" level="0" />
+            <ADD>
+                <INTEGER_CONSTANT value="32" />
+                <FLOAT_DIVIDE>
+                    <VARIABLE id="centigrade" level="0" />
+                    <VARIABLE id="ratio" level="0" />
+                </FLOAT_DIVIDE>
+            </ADD>
+        </ASSIGN>
+    </COMPOUND>
+    <ASSIGN line="14">
+        <VARIABLE id="dze" level="0" />
+        <FLOAT_DIVIDE>
+            <VARIABLE id="fahrenheit" level="0" />
+            <SUBTRACT>
+                <VARIABLE id="ratio" level="0" />
+                <VARIABLE id="ratio" level="0" />
+            </SUBTRACT>
+        </FLOAT_DIVIDE>
+    </ASSIGN>
+    <COMPOUND line="16">
+        <ASSIGN line="17">
+            <VARIABLE id="number" level="0" />
+            <INTEGER_CONSTANT value="2" />
+        </ASSIGN>
+        <ASSIGN line="18">
+            <VARIABLE id="root" level="0" />
+            <VARIABLE id="number" level="0" />
+        </ASSIGN>
+        <ASSIGN line="19">
+            <VARIABLE id="root" level="0" />
+            <FLOAT_DIVIDE>
+                <ADD>
+                    <FLOAT_DIVIDE>
+                        <VARIABLE id="number" level="0" />
+                        <VARIABLE id="root" level="0" />
+                    </FLOAT_DIVIDE>
+                    <VARIABLE id="root" level="0" />
+                </ADD>
+                <INTEGER_CONSTANT value="2" />
+            </FLOAT_DIVIDE>
+        </ASSIGN>
+    </COMPOUND>
+    <ASSIGN line="22">
+        <VARIABLE id="ch" level="0" />
+        <STRING_CONSTANT value="x" />
+    </ASSIGN>
+    <ASSIGN line="23">
+        <VARIABLE id="str" level="0" />
+        <STRING_CONSTANT value="hello, world" />
+    </ASSIGN>
+</COMPOUND>

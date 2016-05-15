@@ -1,5 +1,6 @@
 package io.github.toandv.wci.frontend;
 
+import io.github.toandv.wci.frontend.pascal.tokens.PascalToken;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -27,8 +28,8 @@ public class SourceTest {
         Assert.assertEquals('B', source.nextChar());
         Assert.assertEquals('C', source.nextChar());
         Assert.assertEquals('D', source.nextChar());
-        Assert.assertEquals(Source.EOL, source.nextChar());
-        Assert.assertEquals(Source.EOF, source.nextChar());
+        Assert.assertEquals(PascalToken.EOL_CHAR, source.nextChar());
+        Assert.assertEquals(PascalToken.EOF_CHAR, source.nextChar());
     }
 
     @After

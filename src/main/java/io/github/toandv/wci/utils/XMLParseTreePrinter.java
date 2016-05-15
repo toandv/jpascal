@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class ParseTreePrinter {
+public class XMLParseTreePrinter {
 
     private static final int INDENT_WIDTH = 4;
 
@@ -33,11 +33,10 @@ public class ParseTreePrinter {
 
     /**
      * Constructor
-     * 
-     * @param ps
-     *            the output print stream.
+     *
+     * @param ps the output print stream.
      */
-    public ParseTreePrinter(PrintStream ps) {
+    public XMLParseTreePrinter(PrintStream ps) {
         this.ps = ps;
         this.length = 0;
         this.indentation = "";
@@ -52,9 +51,8 @@ public class ParseTreePrinter {
 
     /**
      * Print the intermediate code as a parse tree.
-     * 
-     * @param iCode
-     *            the intermediate code.
+     *
+     * @param iCode the intermediate code.
      */
     public void print(ICode iCode) {
         ps.println("\n===== INTERMEDIATE CODE =====\n");
@@ -65,9 +63,8 @@ public class ParseTreePrinter {
 
     /**
      * Print a parse tree node.
-     * 
-     * @param node
-     *            the parse tree node.
+     *
+     * @param node the parse tree node.
      */
     private void printNode(ICodeNodeImpl node) {
         // Opening tag.
@@ -100,9 +97,8 @@ public class ParseTreePrinter {
 
     /**
      * Print a parse tree node's attributes.
-     * 
-     * @param node
-     *            the parse tree node.
+     *
+     * @param node the parse tree node.
      */
     private void printAttributes(ICodeNodeImpl node) {
         String saveIndentation = indentation;
@@ -122,11 +118,9 @@ public class ParseTreePrinter {
 
     /**
      * Print a node attribute as key="value".
-     * 
-     * @param keyString
-     *            the key string.
-     * @param value
-     *            the value.
+     *
+     * @param keyString the key string.
+     * @param value     the value.
      */
     private void printAttribute(String keyString, Object value) {
         // If the value is a symbol table entry, use the identifier's name.
@@ -148,9 +142,8 @@ public class ParseTreePrinter {
 
     /**
      * Print a parse tree node's child nodes.
-     * 
-     * @param childNodes
-     *            the array list of child nodes.
+     *
+     * @param childNodes the array list of child nodes.
      */
     private void printChildNodes(List<ICodeNode> childNodes) {
         String saveIndentation = indentation;
@@ -165,18 +158,16 @@ public class ParseTreePrinter {
 
     /**
      * Print a parse tree node's type specification.
-     * 
-     * @param node
-     *            the parse tree node.
+     *
+     * @param node the parse tree node.
      */
     private void printTypeSpec(ICodeNodeImpl node) {
     }
 
     /**
      * Append text to the output line.
-     * 
-     * @param text
-     *            the text to append.
+     *
+     * @param text the text to append.
      */
     private void append(String text) {
         int textLength = text.length();
@@ -223,7 +214,7 @@ public class ParseTreePrinter {
         root.addChild(copy);
         iCode.setRoot(root);
 
-        ParseTreePrinter printer = new ParseTreePrinter(System.out);
+        XMLParseTreePrinter printer = new XMLParseTreePrinter(System.out);
         printer.print(iCode);
 
     }

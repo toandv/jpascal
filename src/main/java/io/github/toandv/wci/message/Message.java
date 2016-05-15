@@ -1,4 +1,3 @@
-
 package io.github.toandv.wci.message;
 
 public class Message {
