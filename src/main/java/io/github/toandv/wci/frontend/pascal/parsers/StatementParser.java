@@ -73,7 +73,8 @@ public class StatementParser extends PascalParserTD {
         }
         if (token.getType() == terminator) {
             nextToken(); // Consume.
-        } else {
+        }
+        else {
             errorHandler.flag(token, errorCode, this);
         }
     }

@@ -1,9 +1,4 @@
-/src/main/main.iml
-/build
-/gradle
-/.idea
 /.gradle
-/target/
-.classpath
-.project
-.settings/*
+/.idea
+/build
+gradle

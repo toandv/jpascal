@@ -1,6 +1,6 @@
 apply plugin: 'java'
 
-group = 'io.github.toandv'
+group = 'StudyInDepth'
 version = '0.0.1'
 
 description = """"""
