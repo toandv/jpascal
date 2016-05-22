@@ -7,7 +7,7 @@ import io.github.toandv.wci.message.MessageType;
 
 public class PascalErrorHandler {
 
-    private static final int MAX_ERRORS = 25;
+    private static final int MAX_ERRORS = 5;
 
     // Why static??
     private static int errorCount = 0; // count of syntax errors
