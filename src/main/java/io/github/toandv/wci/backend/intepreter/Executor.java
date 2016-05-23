@@ -19,6 +19,9 @@ public class Executor extends Backend {
         runtimeErrorHandler = new RuntimeErrorHandler();
     }
 
+    public Executor() {
+    }
+
     public Executor(Executor parent) {
         this.symTab = parent.symTab;
         this.icode = parent.icode;
