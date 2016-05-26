@@ -66,7 +66,7 @@ public class XMLParseTreePrinter {
      *
      * @param node the parse tree node.
      */
-    private void printNode(ICodeNodeImpl node) {
+    public void printNode(ICodeNodeImpl node) {
         // Opening tag.
         append(indentation);
         append("<" + node.toString());

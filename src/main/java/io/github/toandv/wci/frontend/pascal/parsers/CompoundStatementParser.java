@@ -1,5 +1,6 @@
 package io.github.toandv.wci.frontend.pascal.parsers;
 
+import io.github.toandv.wci.frontend.Parser;
 import io.github.toandv.wci.frontend.Token;
 import io.github.toandv.wci.intermediate.icode.ICodeFactory;
 import io.github.toandv.wci.intermediate.icode.ICodeNode;
@@ -13,15 +14,15 @@ import static io.github.toandv.wci.intermediate.icode.impl.ICodeNodeTypeImpl.COM
  */
 public class CompoundStatementParser extends StatementParser {
 
-    public CompoundStatementParser(StatementParser statementParser) {
-        super(statementParser);
+    public CompoundStatementParser(Parser parent) {
+        super(parent);
     }
 
     @Override
     public ICodeNode parse(Token token) throws Exception {
         token = nextToken(); // Consume BEGIN token.
         ICodeNode compoundStatementNode = ICodeFactory.createICodeNode(COMPOUND);
-        
+
         // Parse the statement list terminated by END.
         StatementParser statementParser = new StatementParser(this);
         statementParser.pareList(token, compoundStatementNode, END, MISSING_END);

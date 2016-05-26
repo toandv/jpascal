@@ -1,6 +1,7 @@
 package io.github.toandv.wci.frontend.pascal.parsers;
 
 import io.github.toandv.wci.frontend.EofToken;
+import io.github.toandv.wci.frontend.Parser;
 import io.github.toandv.wci.frontend.Scanner;
 import io.github.toandv.wci.frontend.Token;
 import io.github.toandv.wci.frontend.pascal.PascalErrorCode;
@@ -25,7 +26,7 @@ public class StatementParser extends PascalParserTD {
         super(scanner);
     }
 
-    public StatementParser(PascalParserTD parent) {
+    public StatementParser(Parser parent) {
         super(parent);
     }
 

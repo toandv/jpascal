@@ -4,7 +4,7 @@ import io.github.toandv.wci.frontend.Token;
 import io.github.toandv.wci.frontend.pascal.PascalTokenType;
 import org.junit.Assert;
 
-public class SpecialSymbolTokenTest extends TokenBaseTest {
+public class SpecialSymbolTokenTest extends BaseTokenTest {
 
     @Override
     public void extractToken() throws Exception {

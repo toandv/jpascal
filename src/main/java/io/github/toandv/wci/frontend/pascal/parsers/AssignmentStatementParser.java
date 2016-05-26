@@ -1,16 +1,17 @@
 package io.github.toandv.wci.frontend.pascal.parsers;
 
-import static io.github.toandv.wci.frontend.pascal.PascalErrorCode.MISSING_COLON_EQUALS;
-import static io.github.toandv.wci.frontend.pascal.PascalTokenType.COLON_EQUALS;
-import static io.github.toandv.wci.intermediate.icode.impl.ICodeKeyImpl.ID;
-import static io.github.toandv.wci.intermediate.icode.impl.ICodeNodeTypeImpl.ASSIGN;
-import static io.github.toandv.wci.intermediate.icode.impl.ICodeNodeTypeImpl.VARIABLE;
-
+import io.github.toandv.wci.frontend.Parser;
 import io.github.toandv.wci.frontend.Scanner;
 import io.github.toandv.wci.frontend.Token;
 import io.github.toandv.wci.intermediate.icode.ICodeFactory;
 import io.github.toandv.wci.intermediate.icode.ICodeNode;
 import io.github.toandv.wci.intermediate.symtab.SymTabEntry;
+
+import static io.github.toandv.wci.frontend.pascal.PascalErrorCode.MISSING_COLON_EQUALS;
+import static io.github.toandv.wci.frontend.pascal.PascalTokenType.COLON_EQUALS;
+import static io.github.toandv.wci.intermediate.icode.impl.ICodeKeyImpl.ID;
+import static io.github.toandv.wci.intermediate.icode.impl.ICodeNodeTypeImpl.ASSIGN;
+import static io.github.toandv.wci.intermediate.icode.impl.ICodeNodeTypeImpl.VARIABLE;
 
 /**
  * Created by toan on 5/8/16.
@@ -21,8 +22,8 @@ public class AssignmentStatementParser extends StatementParser {
         super(scanner);
     }
 
-    public AssignmentStatementParser(StatementParser statementParser) {
-        super(statementParser);
+    public AssignmentStatementParser(Parser parent) {
+        super(parent);
     }
 
     @Override

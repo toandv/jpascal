@@ -23,8 +23,8 @@ public class PascalParserTD extends Parser {
         super(scanner);
     }
 
-    public PascalParserTD(PascalParserTD parent) {
-        super(parent.scanner);
+    public PascalParserTD(Parser parent) {
+        super(parent.getScanner());
     }
 
     /**

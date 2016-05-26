@@ -62,46 +62,41 @@ public abstract class Parser implements MessageProducer {
     public abstract int getErrorCount();
 
     public Token currentToken() {
-
         return scanner.currentToken();
     }
 
     public Token nextToken() throws Exception {
-
         return scanner.nextToken();
     }
 
     @Override
     public void addMessageListener(MessageListener listener) {
-
         messageHandler.addListener(listener);
     }
 
     @Override
     public void removeMessageListener(MessageListener listener) {
-
         messageHandler.removeListener(listener);
     }
 
     @Override
     public void sendMessage(Message message) {
-
         messageHandler.sendMessage(message);
     }
 
     public SymTab getSymTab() {
-
         return symTab;
     }
 
     public ICode getICode() {
-
         return iCode;
     }
 
     public SymTabStack getSymTabStack() {
-
         return symTabStack;
     }
 
+    public Scanner getScanner() {
+        return scanner;
+    }
 }

@@ -2,6 +2,7 @@ package io.github.toandv.wci.frontend.pascal.parsers;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Sets;
+import io.github.toandv.wci.frontend.Parser;
 import io.github.toandv.wci.frontend.Token;
 import io.github.toandv.wci.frontend.TokenType;
 import io.github.toandv.wci.frontend.pascal.PascalTokenType;
@@ -9,18 +10,13 @@ import io.github.toandv.wci.intermediate.icode.ICodeFactory;
 import io.github.toandv.wci.intermediate.icode.ICodeNode;
 import io.github.toandv.wci.intermediate.icode.ICodeNodeType;
 import io.github.toandv.wci.intermediate.icode.impl.ICodeNodeTypeImpl;
-import io.github.toandv.wci.intermediate.symtab.SymTabEntry;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import static io.github.toandv.wci.frontend.pascal.PascalErrorCode.*;
 import static io.github.toandv.wci.frontend.pascal.PascalTokenType.*;
-import static io.github.toandv.wci.intermediate.icode.impl.ICodeKeyImpl.ID;
-import static io.github.toandv.wci.intermediate.icode.impl.ICodeKeyImpl.VALUE;
 import static io.github.toandv.wci.intermediate.icode.impl.ICodeNodeTypeImpl.*;
-import static io.github.toandv.wci.intermediate.icode.impl.ICodeNodeTypeImpl.NOT;
 
 /**
  * Created by toan on 5/8/16.
@@ -75,8 +71,10 @@ public class ExpressionParser extends StatementParser {
         MULT_OPS_OPS_MAP = ImmutableMap.copyOf(MUTABLE_MULT_OPS_OPS_MAP);
     }
 
-    public ExpressionParser(StatementParser statementParser) {
-        super(statementParser);
+    TermParser termParser;
+
+    public ExpressionParser(Parser parent) {
+        super(parent);
     }
 
     @Override
@@ -115,7 +113,10 @@ public class ExpressionParser extends StatementParser {
         }
 
         // Parse a term and make it the root.
-        ICodeNode rootNode = parseTerm(token);
+        if (termParser == null) {
+            termParser = new TermParser(this);
+        }
+        ICodeNode rootNode = termParser.parse(token);
 
         // Was there a leading - assign.
         if (signType == MINUS) {
@@ -135,7 +136,7 @@ public class ExpressionParser extends StatementParser {
             token = nextToken(); // Consume the operator.
 
             // Parse another factor.
-            opNode.addChild(parseTerm(token));
+            opNode.addChild(termParser.parse(token));
 
             // The operator node becomes the root node.
             rootNode = opNode;
@@ -145,89 +146,5 @@ public class ExpressionParser extends StatementParser {
         return rootNode;
     }
 
-    private ICodeNode parseTerm(Token token) throws Exception {
-        // Parse a factor and make its node the tree root.
-        ICodeNode rootNode = parseFactor(token);
-
-        // Update current token.
-        token = currentToken();
-
-        while (MULT_OPS.contains(token.getType())) {
-            ICodeNodeType opNodeType = MULT_OPS_OPS_MAP.get(token.getType());
-            ICodeNode opNode = ICodeFactory.createICodeNode(opNodeType);
-            opNode.addChild(rootNode);
-
-            token = nextToken(); // Consume op node.
-
-            // Parse another term.
-            opNode.addChild(parseFactor(token));
-
-            rootNode = opNode;
-
-            token = currentToken(); // Update current token.
-        }
-        return rootNode;
-    }
-
-    private ICodeNode parseFactor(Token token) throws Exception {
-        ICodeNode rootNode = null;
-        switch ((PascalTokenType) token.getType()) {
-            case IDENTIFIER:
-                // look up the identifier in the symbol table.
-                String name = token.getText().toLowerCase();
-                SymTabEntry id = symTabStack.lookup(name);
-                if (id == null) {
-                    errorHandler.flag(token, IDENTIFIER_UNDEFINED, this);
-                    id = symTabStack.enterLocal(name);
-                }
-                rootNode = ICodeFactory.createICodeNode(VARIABLE);
-                rootNode.setAttribute(ID, id);
-                id.appendLineNumber(token.getLineNumber());
-                nextToken();
-                break;
-            case INTEGER:
-                // Create an INTEGER_CONSTANT node as the root.
-                rootNode = ICodeFactory.createICodeNode(INTEGER_CONSTANT);
-                rootNode.setAttribute(VALUE, token.getValue());
-                nextToken();
-                break;
-            case REAL:
-                // Create an REAL_CONSTANT node as the root.
-                rootNode = ICodeFactory.createICodeNode(REAL_CONSTANT);
-                rootNode.setAttribute(VALUE, token.getValue());
-                nextToken();
-                break;
-            case STRING:
-                // Create an STRING_CONSTANT node as the root.
-                rootNode = ICodeFactory.createICodeNode(STRING_CONSTANT);
-                rootNode.setAttribute(VALUE, token.getValue());
-                nextToken();
-                break;
-            case NOT:
-                token = nextToken(); // Consume the NOT token.
-
-                // Create an NOT node as the root.
-                rootNode = ICodeFactory.createICodeNode(NOT);
-                // Parse the child factor and add to the root
-                rootNode.addChild(parseFactor(token));
-                break;
-            case LEFT_PAREN:
-                token = nextToken(); // Consume the (.
-                // Parse an expression and make it the root.
-                rootNode = parseExpression(token);
-                // Look for the matching ) token
-                token = currentToken();
-                if (token.getType() == RIGHT_PAREN) {
-                    nextToken(); // Consume the matching ) token.
-                } else {
-                    errorHandler.flag(token, MISSING_RIGHT_PAREN, this);
-                }
-                break;
-            default:
-                errorHandler.flag(token, UNEXPECTED_TOKEN, this);
-                break;
-        }
-        return rootNode;
-    }
 
 }

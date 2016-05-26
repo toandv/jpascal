@@ -4,7 +4,7 @@ import io.github.toandv.wci.frontend.Token;
 import io.github.toandv.wci.frontend.pascal.PascalTokenType;
 import org.junit.Assert;
 
-public class NumberTokenTest extends TokenBaseTest {
+public class NumberTokenTest extends BaseTokenTest {
 
     @Override
     public void extractToken() throws Exception {

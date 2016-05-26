@@ -5,7 +5,7 @@ import io.github.toandv.wci.frontend.pascal.PascalTokenType;
 
 import static org.junit.Assert.assertEquals;
 
-public class WordTokenTest extends TokenBaseTest {
+public class WordTokenTest extends BaseTokenTest {
 
     @Override
     public void extractToken() throws Exception {
