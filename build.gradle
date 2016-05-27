@@ -1,6 +1,8 @@
 apply plugin: 'java'
+apply plugin: 'scala'
+apply plugin: 'groovy'
 
-group = 'StudyInDepth'
+group = 'io.github.toandv'
 version = '0.0.1'
 
 description = """"""
@@ -12,10 +14,19 @@ targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 dependencies {
     compile 'com.google.guava:guava:19.0'
+    compile 'org.scala-lang:scala-library:2.11.8'
+    compile 'org.codehaus.groovy:groovy-all:2.4.4'
+
     compile 'ch.qos.logback:logback-classic:1.1.7'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.7.4'
+
     testCompile 'junit:junit:4.12'
+    testCompile 'org.scalatest:scalatest_2.11:2.2.6'
+    testRuntime 'org.scala-lang.modules:scala-xml_2.11:1.0.5'
 }
+
+

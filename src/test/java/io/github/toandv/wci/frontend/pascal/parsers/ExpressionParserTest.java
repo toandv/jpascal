@@ -14,7 +14,7 @@ public class ExpressionParserTest extends BaseParserTest {
 
     @Test
     public void testParseSimpleExpression() throws Exception {
-        init("/parsers/expressions_01");
+        initContent("a + 1 + b - 2");
         parser.getSymTabStack().enterLocal("a");
         parser.getSymTabStack().enterLocal("b");
         expressionParser = new ExpressionParser(parser);

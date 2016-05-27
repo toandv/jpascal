@@ -4,6 +4,7 @@ import io.github.toandv.wci.frontend.*;
 import org.junit.After;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
@@ -17,6 +18,13 @@ public abstract class BaseTest {
 
     public void init(String file) {
         InputStream resourceAsStream = SourceTest.class.getResourceAsStream(file);
+        source = new Source(new BufferedReader(new InputStreamReader(resourceAsStream)));
+        scanner = new PascalScanner(source);
+        parser = new PascalParserTD(scanner);
+    }
+
+    public void initContent(String content) {
+        ByteArrayInputStream  resourceAsStream = new ByteArrayInputStream(content.getBytes());
         source = new Source(new BufferedReader(new InputStreamReader(resourceAsStream)));
         scanner = new PascalScanner(source);
         parser = new PascalParserTD(scanner);
