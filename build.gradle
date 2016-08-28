@@ -24,6 +24,8 @@ dependencies {
     compile 'ch.qos.logback:logback-classic:1.1.7'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.7.4'
 
+    compile group: 'net.bytebuddy', name: 'byte-buddy-dep', version: '1.4.20'
+
     testCompile 'junit:junit:4.12'
     testCompile 'org.scalatest:scalatest_2.11:2.2.6'
     testRuntime 'org.scala-lang.modules:scala-xml_2.11:1.0.5'

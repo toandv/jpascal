@@ -18,7 +18,7 @@ import static io.github.toandv.wci.frontend.pascal.PascalTokenType.SEMICOLON;
 import static io.github.toandv.wci.intermediate.icode.impl.ICodeKeyImpl.LINE;
 
 /**
- * Created by toan on 5/8/16.
+ * Created by toan on 5/8/16 (May)
  */
 public class StatementParser extends PascalParserTD {
 
@@ -47,6 +47,11 @@ public class StatementParser extends PascalParserTD {
         }
         setLineNumber(statementNode, token);
         return statementNode;
+    }
+
+    @Override
+    public void parse() throws Exception {
+        super.parse();
     }
 
     protected void pareList(Token token, ICodeNode parentNode, PascalTokenType terminator, PascalErrorCode errorCode)
