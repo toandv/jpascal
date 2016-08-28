@@ -1,6 +1,7 @@
 package io.github.toandv.wci.frontend.pascal.parsers;
 
 import io.github.toandv.wci.frontend.Parser;
+import io.github.toandv.wci.frontend.Scanner;
 import io.github.toandv.wci.frontend.Token;
 import io.github.toandv.wci.intermediate.icode.ICodeFactory;
 import io.github.toandv.wci.intermediate.icode.ICodeNode;
@@ -14,7 +15,12 @@ public class TermParser extends ExpressionParser {
         super(parent);
     }
 
-    FactorParser factorParser;
+    public TermParser(Scanner scanner) {
+        super(scanner);
+    }
+
+    // NOTE: All parsers share the same scanner, so it is fine to extend ExpressionParser
+    protected FactorParser factorParser;
 
     @Override
     public ICodeNode parse(Token token) throws Exception {

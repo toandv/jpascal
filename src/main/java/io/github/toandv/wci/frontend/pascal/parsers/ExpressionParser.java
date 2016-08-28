@@ -3,6 +3,7 @@ package io.github.toandv.wci.frontend.pascal.parsers;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Sets;
 import io.github.toandv.wci.frontend.Parser;
+import io.github.toandv.wci.frontend.Scanner;
 import io.github.toandv.wci.frontend.Token;
 import io.github.toandv.wci.frontend.TokenType;
 import io.github.toandv.wci.frontend.pascal.PascalTokenType;
@@ -71,10 +72,15 @@ public class ExpressionParser extends StatementParser {
         MULT_OPS_OPS_MAP = ImmutableMap.copyOf(MUTABLE_MULT_OPS_OPS_MAP);
     }
 
-    TermParser termParser;
+    // NOTE: All parsers share the same scanner, so it is fine to extend ExpressionParser
+    protected TermParser termParser;
 
     public ExpressionParser(Parser parent) {
         super(parent);
+    }
+
+    public ExpressionParser(Scanner scanner) {
+        super(scanner);
     }
 
     @Override
@@ -114,6 +120,7 @@ public class ExpressionParser extends StatementParser {
 
         // Parse a term and make it the root.
         if (termParser == null) {
+            // NOTE: create a new TermParser or share the same TermParser
             termParser = new TermParser(this);
         }
         ICodeNode rootNode = termParser.parse(token);

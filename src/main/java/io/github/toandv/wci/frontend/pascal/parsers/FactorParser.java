@@ -1,28 +1,32 @@
 package io.github.toandv.wci.frontend.pascal.parsers;
 
 import io.github.toandv.wci.frontend.Parser;
+import io.github.toandv.wci.frontend.Scanner;
 import io.github.toandv.wci.frontend.Token;
 import io.github.toandv.wci.frontend.pascal.PascalTokenType;
 import io.github.toandv.wci.intermediate.icode.ICodeFactory;
 import io.github.toandv.wci.intermediate.icode.ICodeNode;
 import io.github.toandv.wci.intermediate.symtab.SymTabEntry;
 
-import static io.github.toandv.wci.frontend.pascal.PascalErrorCode.IDENTIFIER_UNDEFINED;
-import static io.github.toandv.wci.frontend.pascal.PascalErrorCode.MISSING_RIGHT_PAREN;
-import static io.github.toandv.wci.frontend.pascal.PascalErrorCode.UNEXPECTED_TOKEN;
+import static io.github.toandv.wci.frontend.pascal.PascalErrorCode.*;
 import static io.github.toandv.wci.frontend.pascal.PascalTokenType.RIGHT_PAREN;
 import static io.github.toandv.wci.intermediate.icode.impl.ICodeKeyImpl.ID;
 import static io.github.toandv.wci.intermediate.icode.impl.ICodeKeyImpl.VALUE;
 import static io.github.toandv.wci.intermediate.icode.impl.ICodeNodeTypeImpl.*;
-import static io.github.toandv.wci.intermediate.icode.impl.ICodeNodeTypeImpl.NOT;
 
 /**
  * Created by toan on 5/27/16.
  */
 public class FactorParser extends TermParser {
 
+    protected ExpressionParser expressionParser;
+
     public FactorParser(Parser parent) {
         super(parent);
+    }
+
+    public FactorParser(Scanner scanner) {
+        super(scanner);
     }
 
     @Override
@@ -71,7 +75,9 @@ public class FactorParser extends TermParser {
             case LEFT_PAREN:
                 token = nextToken(); // Consume the (.
                 // Parse an expression and make it the root.
-                ExpressionParser expressionParser = new ExpressionParser(this);
+                if (expressionParser == null) {
+                    expressionParser = new ExpressionParser(this);
+                }
                 rootNode = expressionParser.parse(token);
                 // Look for the matching ) token
                 token = currentToken();
