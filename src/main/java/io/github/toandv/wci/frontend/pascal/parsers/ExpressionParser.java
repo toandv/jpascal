@@ -72,9 +72,6 @@ public class ExpressionParser extends StatementParser {
         MULT_OPS_OPS_MAP = ImmutableMap.copyOf(MUTABLE_MULT_OPS_OPS_MAP);
     }
 
-    // NOTE: All parsers share the same scanner, so it is fine to extend ExpressionParser
-    protected TermParser termParser;
-
     public ExpressionParser(Parser parent) {
         super(parent);
     }
@@ -102,7 +99,8 @@ public class ExpressionParser extends StatementParser {
             token = nextToken(); // Consume the operator token.
 
             // Parse the second simple expression.
-            opNode.addChild(parseSimpleExpression(token));
+            ICodeNode rightHandExpression = parseSimpleExpression(token);
+            opNode.addChild(rightHandExpression);
             rootNode = opNode;
         }
         return rootNode;
@@ -119,10 +117,8 @@ public class ExpressionParser extends StatementParser {
         }
 
         // Parse a term and make it the root.
-        if (termParser == null) {
-            // NOTE: create a new TermParser or share the same TermParser
-            termParser = new TermParser(this);
-        }
+        // Create a new parser every time in favour of stateless and thread-safety
+        TermParser  termParser = new TermParser(this);
         ICodeNode rootNode = termParser.parse(token);
 
         // Was there a leading - assign.
@@ -143,7 +139,8 @@ public class ExpressionParser extends StatementParser {
             token = nextToken(); // Consume the operator.
 
             // Parse another factor.
-            opNode.addChild(termParser.parse(token));
+            ICodeNode rightHandleNode = termParser.parse(token);
+            opNode.addChild(rightHandleNode);
 
             // The operator node becomes the root node.
             rootNode = opNode;

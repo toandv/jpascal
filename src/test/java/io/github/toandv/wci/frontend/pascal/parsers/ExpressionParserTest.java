@@ -14,12 +14,18 @@ public class ExpressionParserTest extends BaseParserTest {
 
     @Test
     public void testParseSimpleExpression() throws Exception {
-        initContent("a + 1 + b - 2 * 2 / 100 + (2 - 1) / 5");
+        //String content = "a + 1 + b - 2 * 2 / 100 + (2 - 1) / 5";
+        String content = "( 1 ";
+        for (int i = 0; i < 10000; i++) {
+            content += " + " + i;
+        }
+        content += ")";
+        initContent(content);
         parser.getSymTabStack().enterLocal("a");
         parser.getSymTabStack().enterLocal("b");
-        expressionParser = new ExpressionParser(parser);
+        expressionParser = new ExpressionParser(scanner);
         ICodeNode expressionNode = expressionParser.parse(scanner.nextToken());
-        XMLParseTreePrinter ps = new XMLParseTreePrinter(System.out);
-        ps.printNode((ICodeNodeImpl) expressionNode);
+      //  XMLParseTreePrinter ps = new XMLParseTreePrinter(System.out);
+       // ps.printNode((ICodeNodeImpl) expressionNode);
     }
 }

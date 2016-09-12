@@ -19,8 +19,6 @@ import static io.github.toandv.wci.intermediate.icode.impl.ICodeNodeTypeImpl.*;
  */
 public class FactorParser extends TermParser {
 
-    protected ExpressionParser expressionParser;
-
     public FactorParser(Parser parent) {
         super(parent);
     }
@@ -75,9 +73,8 @@ public class FactorParser extends TermParser {
             case LEFT_PAREN:
                 token = nextToken(); // Consume the (.
                 // Parse an expression and make it the root.
-                if (expressionParser == null) {
-                    expressionParser = new ExpressionParser(this);
-                }
+                // Create a new parser every time in favour of stateless and thread-safety
+                ExpressionParser expressionParser = new ExpressionParser(this);
                 rootNode = expressionParser.parse(token);
                 // Look for the matching ) token
                 token = currentToken();

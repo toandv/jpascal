@@ -24,6 +24,7 @@ public class ExpressionExecutor extends StatementExecutor {
     public static final Set<ICodeNodeTypeImpl> ARITH_OPS =
             Sets.immutableEnumSet(ADD, SUBTRACT, MULTIPLY, FLOAT_DIVIDE, INTEGER_DIVIDE);
 
+    // TODO - optimize recursive calls
     @Override
     public Object execute(ICodeNode node) {
         ICodeNodeTypeImpl nodeType = (ICodeNodeTypeImpl) node.getType();

@@ -30,7 +30,6 @@ public class ByteBuddyTest {
         dynamicType.saveIn(new File("."));
 
 
-
         Greeting toString = new ByteBuddy()
                 .subclass(Greeting.class)
                 .name("example.Greeting")

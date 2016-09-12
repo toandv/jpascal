@@ -44,7 +44,7 @@ public class StatementParser extends PascalParserTD {
             default:
                 statementNode = ICodeFactory.createICodeNode(ICodeNodeTypeImpl.NO_OP);
                 break;
-        }
+    }
         setLineNumber(statementNode, token);
         return statementNode;
     }

@@ -19,16 +19,11 @@ public class TermParser extends ExpressionParser {
         super(scanner);
     }
 
-    // NOTE: All parsers share the same scanner, so it is fine to extend ExpressionParser
-    protected FactorParser factorParser;
-
     @Override
     public ICodeNode parse(Token token) throws Exception {
         // Parse a factor and make its node the tree root.
 
-        if (factorParser == null) {
-            factorParser = new FactorParser(this);
-        }
+        FactorParser factorParser = new FactorParser(this);
         ICodeNode rootNode = factorParser.parse(token);
 
         // Update current token.
@@ -42,7 +37,8 @@ public class TermParser extends ExpressionParser {
             token = nextToken(); // Consume op node.
 
             // Parse another term.
-            opNode.addChild(factorParser.parse(token));
+            ICodeNode rightHandNode = factorParser.parse(token);
+            opNode.addChild(rightHandNode);
 
             rootNode = opNode;
 
