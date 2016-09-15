@@ -2,6 +2,7 @@ package io.github.toandv.wci.backend.intepreter.executors;
 
 import com.google.common.collect.Sets;
 import io.github.toandv.wci.intermediate.icode.ICodeNode;
+import io.github.toandv.wci.intermediate.icode.impl.ICodeNodeImpl;
 import io.github.toandv.wci.intermediate.icode.impl.ICodeNodeTypeImpl;
 import io.github.toandv.wci.intermediate.symtab.SymTabEntry;
 import io.github.toandv.wci.utils.NumberUtils;
@@ -56,6 +57,24 @@ public class ExpressionExecutor extends StatementExecutor {
 
     private Object executeBinaryOperator(ICodeNode node, ICodeNodeTypeImpl nodeType) {
         // TODO
+
+        ICodeNodeImpl operandNode1 = (ICodeNodeImpl) node.getChildren().get(0);
+        ICodeNodeImpl operandNode2 = (ICodeNodeImpl) node.getChildren().get(1);
+
+        // recursive calls
+        Object operand1 = execute(operandNode1);
+        Object operand2 = execute(operandNode2);
+
+        if (ARITH_OPS.contains(nodeType)) {
+            if (operand1 instanceof Integer && operand2 instanceof Integer) {
+                int value1 = (int) operand1;
+                int value2 = (int) operand2;
+
+            } else {
+
+            }
+        }
+
         return null;
     }
 }
