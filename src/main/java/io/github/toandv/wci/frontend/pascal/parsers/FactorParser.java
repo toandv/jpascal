@@ -6,6 +6,7 @@ import io.github.toandv.wci.frontend.Token;
 import io.github.toandv.wci.frontend.pascal.PascalTokenType;
 import io.github.toandv.wci.intermediate.icode.ICodeFactory;
 import io.github.toandv.wci.intermediate.icode.ICodeNode;
+import io.github.toandv.wci.intermediate.icode.impl.ICodeKeyImpl;
 import io.github.toandv.wci.intermediate.symtab.SymTabEntry;
 
 import static io.github.toandv.wci.frontend.pascal.PascalErrorCode.*;
@@ -41,6 +42,7 @@ public class FactorParser extends TermParser {
                 }
                 rootNode = ICodeFactory.createICodeNode(VARIABLE);
                 rootNode.setAttribute(ID, id);
+                rootNode.setMultiValuesAttribute(ICodeKeyImpl.EBNF_SYMBOL, PascalNonTerminal.FACTOR);
                 id.appendLineNumber(token.getLineNumber());
                 nextToken();
                 break;
@@ -48,18 +50,21 @@ public class FactorParser extends TermParser {
                 // Create an INTEGER_CONSTANT node as the root.
                 rootNode = ICodeFactory.createICodeNode(INTEGER_CONSTANT);
                 rootNode.setAttribute(VALUE, token.getValue());
+                rootNode.setMultiValuesAttribute(ICodeKeyImpl.EBNF_SYMBOL, PascalNonTerminal.FACTOR);
                 nextToken();
                 break;
             case REAL:
                 // Create an REAL_CONSTANT node as the root.
                 rootNode = ICodeFactory.createICodeNode(REAL_CONSTANT);
                 rootNode.setAttribute(VALUE, token.getValue());
+                rootNode.setMultiValuesAttribute(ICodeKeyImpl.EBNF_SYMBOL, PascalNonTerminal.FACTOR);
                 nextToken();
                 break;
             case STRING:
                 // Create an STRING_CONSTANT node as the root.
                 rootNode = ICodeFactory.createICodeNode(STRING_CONSTANT);
                 rootNode.setAttribute(VALUE, token.getValue());
+                rootNode.setMultiValuesAttribute(ICodeKeyImpl.EBNF_SYMBOL, PascalNonTerminal.FACTOR);
                 nextToken();
                 break;
             case NOT:
@@ -68,7 +73,10 @@ public class FactorParser extends TermParser {
                 // Create an NOT node as the root.
                 rootNode = ICodeFactory.createICodeNode(NOT);
                 // Parse the child factor and add to the root
-                rootNode.addChild(parse(token));
+                ICodeNode child = parse(token);
+                child.setAttribute(ICodeKeyImpl.EBNF_SYMBOL, PascalNonTerminal.FACTOR);
+                rootNode.setMultiValuesAttribute(ICodeKeyImpl.EBNF_SYMBOL, PascalNonTerminal.FACTOR);
+                rootNode.addChild(child);
                 break;
             case LEFT_PAREN:
                 token = nextToken(); // Consume the (.
@@ -76,6 +84,7 @@ public class FactorParser extends TermParser {
                 // Create a new parser every time in favour of stateless and thread-safety
                 ExpressionParser expressionParser = new ExpressionParser(this);
                 rootNode = expressionParser.parse(token);
+                rootNode.setMultiValuesAttribute(ICodeKeyImpl.EBNF_SYMBOL, PascalNonTerminal.EXPRESSION);
                 // Look for the matching ) token
                 token = currentToken();
                 if (token.getType() == RIGHT_PAREN) {

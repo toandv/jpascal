@@ -17,5 +17,8 @@ public interface ICodeNode {
 
     Object setAttribute(ICodeKey key, Object value);
 
+    Object setMultiValuesAttribute(ICodeKey key, Object value);
+
     ICodeNode copy();
+
 }

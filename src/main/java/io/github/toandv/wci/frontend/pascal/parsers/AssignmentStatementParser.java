@@ -31,7 +31,7 @@ public class AssignmentStatementParser extends StatementParser {
         ICodeNode assignNode = ICodeFactory.createICodeNode(ASSIGN);
 
         // Look up identifier from SymTabStack.
-        String targetName = token.getText().toString();
+        String targetName = token.getText();
         SymTabEntry variableId = symTabStack.lookup(targetName);
         if (variableId == null) {
             // If not existing, enter new id.

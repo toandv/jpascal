@@ -16,6 +16,14 @@ public abstract class Backend implements MessageProducer {
 
     protected ICode icode;
 
+    public Backend() {
+    }
+
+    public Backend(SymTab symTab, ICode icode) {
+        this.symTab = symTab;
+        this.icode = icode;
+    }
+
     static {
         messageHandler = new MessageHandler();
     }

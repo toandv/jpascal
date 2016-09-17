@@ -5,10 +5,7 @@ import io.github.toandv.wci.intermediate.icode.ICodeKey;
 import io.github.toandv.wci.intermediate.icode.ICodeNode;
 import io.github.toandv.wci.intermediate.icode.ICodeNodeType;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ICodeNodeImpl implements ICodeNode {
 
@@ -23,8 +20,8 @@ public class ICodeNodeImpl implements ICodeNode {
     public ICodeNodeImpl(ICodeNodeType type) {
         this.type = type;
         this.parent = null;
-        this.children = new ArrayList<>();
-        this.attributeMap = new HashMap<>();
+        this.children = new ArrayList<>(2);
+        this.attributeMap = new HashMap<>(2);
     }
 
     @Override
@@ -57,6 +54,17 @@ public class ICodeNodeImpl implements ICodeNode {
     @Override
     public Object setAttribute(ICodeKey key, Object value) {
         this.attributeMap.put(key, value);
+        return value;
+    }
+
+    @Override
+    public Object setMultiValuesAttribute(ICodeKey key, Object value) {
+        Set<Object> values = (Set<Object>) this.attributeMap.get(key);
+        if (values == null) {
+            values = new HashSet<>();
+        }
+        values.add(value);
+        this.attributeMap.putIfAbsent(key, values);
         return value;
     }
 

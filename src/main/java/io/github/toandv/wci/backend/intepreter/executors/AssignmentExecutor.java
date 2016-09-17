@@ -1,6 +1,8 @@
 package io.github.toandv.wci.backend.intepreter.executors;
 
+import io.github.toandv.wci.intermediate.icode.ICode;
 import io.github.toandv.wci.intermediate.icode.ICodeNode;
+import io.github.toandv.wci.intermediate.symtab.SymTab;
 import io.github.toandv.wci.intermediate.symtab.SymTabEntry;
 import io.github.toandv.wci.message.Message;
 
@@ -15,6 +17,10 @@ import static io.github.toandv.wci.message.MessageType.ASSIGN;
 public class AssignmentExecutor extends StatementExecutor {
     public AssignmentExecutor(StatementExecutor statementExecutor) {
         super(statementExecutor);
+    }
+
+    public AssignmentExecutor(SymTab symTab, ICode icode) {
+        super(symTab, icode);
     }
 
     @Override
@@ -41,7 +47,7 @@ public class AssignmentExecutor extends StatementExecutor {
     private void sendMessage(ICodeNode node, String variableName, Object value) {
         Object lineNumber = node.getAttribute(LINE);
         if (lineNumber != null) {
-            sendMessage(new Message(ASSIGN, new Object[] {lineNumber, variableName, value}));
+            sendMessage(new Message(ASSIGN, new Object[]{lineNumber, variableName, value}));
         }
     }
 }

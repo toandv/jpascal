@@ -27,6 +27,10 @@ public class Executor extends Backend {
         this.icode = parent.icode;
     }
 
+    public Executor(SymTab symTab, ICode icode) {
+        super(symTab, icode);
+    }
+
     @Override
     public void process(ICode icode, SymTab symtab) throws Exception {
         this.icode = icode;

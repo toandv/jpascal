@@ -1,8 +1,10 @@
 package io.github.toandv.wci.backend.intepreter.executors;
 
 import io.github.toandv.wci.backend.intepreter.Executor;
+import io.github.toandv.wci.intermediate.icode.ICode;
 import io.github.toandv.wci.intermediate.icode.ICodeNode;
 import io.github.toandv.wci.intermediate.icode.impl.ICodeNodeTypeImpl;
+import io.github.toandv.wci.intermediate.symtab.SymTab;
 import io.github.toandv.wci.message.Message;
 
 import static io.github.toandv.wci.backend.intepreter.RuntimeErrorCode.UNIMPLEMENTED_FEATURE;
@@ -16,6 +18,10 @@ public class StatementExecutor extends Executor {
 
     public StatementExecutor(Executor parent) {
         super(parent);
+    }
+
+    public StatementExecutor(SymTab symTab, ICode icode) {
+        super(symTab, icode);
     }
 
     public Object execute(ICodeNode node) {

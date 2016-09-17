@@ -6,6 +6,7 @@ import io.github.toandv.wci.frontend.Token;
 import io.github.toandv.wci.intermediate.icode.ICodeFactory;
 import io.github.toandv.wci.intermediate.icode.ICodeNode;
 import io.github.toandv.wci.intermediate.icode.ICodeNodeType;
+import io.github.toandv.wci.intermediate.icode.impl.ICodeKeyImpl;
 
 /**
  * Created by toan on 5/27/16.
@@ -41,9 +42,10 @@ public class TermParser extends ExpressionParser {
             opNode.addChild(rightHandNode);
 
             rootNode = opNode;
-
+            rootNode.setMultiValuesAttribute(ICodeKeyImpl.EBNF_SYMBOL, PascalNonTerminal.TERM);
             token = currentToken(); // Update current token.
         }
+        rootNode.setMultiValuesAttribute(ICodeKeyImpl.EBNF_SYMBOL, PascalNonTerminal.TERM);
         return rootNode;
     }
 
