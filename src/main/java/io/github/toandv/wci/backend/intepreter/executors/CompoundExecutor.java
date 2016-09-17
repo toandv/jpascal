@@ -1,6 +1,8 @@
 package io.github.toandv.wci.backend.intepreter.executors;
 
+import io.github.toandv.wci.intermediate.icode.ICode;
 import io.github.toandv.wci.intermediate.icode.ICodeNode;
+import io.github.toandv.wci.intermediate.symtab.SymTab;
 
 import java.util.List;
 
@@ -10,6 +12,10 @@ import java.util.List;
 public class CompoundExecutor extends StatementExecutor {
     public CompoundExecutor(StatementExecutor statementExecutor) {
         super(statementExecutor);
+    }
+
+    public CompoundExecutor(SymTab symTab, ICode icode) {
+        super(symTab, icode);
     }
 
     @Override

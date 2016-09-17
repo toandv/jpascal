@@ -79,7 +79,7 @@ public class Pascal {
         try {
             args = new String[] { "compile", "-ix", "/home/toan/Dropbox/ws/wci/src/test/resources/assignments" };
             String operation = args[0];
-            // Operation.
+            // ArithmeticOperator.
             if (!(operation.equalsIgnoreCase("compile") || operation.equalsIgnoreCase("execute"))) {
                 throw new Exception();
             }

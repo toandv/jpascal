@@ -6,6 +6,7 @@ import io.github.toandv.wci.frontend.Token;
 import io.github.toandv.wci.intermediate.icode.ICodeFactory;
 import io.github.toandv.wci.intermediate.icode.ICodeNode;
 import io.github.toandv.wci.intermediate.icode.ICodeNodeType;
+import io.github.toandv.wci.intermediate.icode.impl.ICodeKeyImpl;
 
 /**
  * Created by toan on 5/27/16.
@@ -19,16 +20,11 @@ public class TermParser extends ExpressionParser {
         super(scanner);
     }
 
-    // NOTE: All parsers share the same scanner, so it is fine to extend ExpressionParser
-    protected FactorParser factorParser;
-
     @Override
     public ICodeNode parse(Token token) throws Exception {
         // Parse a factor and make its node the tree root.
 
-        if (factorParser == null) {
-            factorParser = new FactorParser(this);
-        }
+        FactorParser factorParser = new FactorParser(this);
         ICodeNode rootNode = factorParser.parse(token);
 
         // Update current token.
@@ -42,12 +38,14 @@ public class TermParser extends ExpressionParser {
             token = nextToken(); // Consume op node.
 
             // Parse another term.
-            opNode.addChild(factorParser.parse(token));
+            ICodeNode rightHandNode = factorParser.parse(token);
+            opNode.addChild(rightHandNode);
 
             rootNode = opNode;
-
+            rootNode.setMultiValuesAttribute(ICodeKeyImpl.EBNF_SYMBOL, PascalNonTerminal.TERM);
             token = currentToken(); // Update current token.
         }
+        rootNode.setMultiValuesAttribute(ICodeKeyImpl.EBNF_SYMBOL, PascalNonTerminal.TERM);
         return rootNode;
     }
 

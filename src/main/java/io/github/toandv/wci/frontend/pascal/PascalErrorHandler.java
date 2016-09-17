@@ -36,6 +36,7 @@ public class PascalErrorHandler {
         // Notify the parser's listeners and then abort.
         String fatalText = "FATAL ERROR: " + errorCode.toString();
         parser.sendMessage(new Message(MessageType.SYNTAX_ERROR, new Object[] { 0, 0, "", fatalText }));
+        System.out.println(fatalText);
         System.exit(errorCode.getStatus());
     }
 }

@@ -18,7 +18,7 @@ public enum ICodeNodeTypeImpl implements ICodeNodeType {
     ADD, SUBTRACT, OR, NEGATE,
 
     // Multiplicative operators
-    MULTIPLY, INTEGER_DIVIDE, FLOAT_DIVIDE, MOD, AND,
+    MULTIPLY, DIVIDE, MOD, AND,
 
     // Operands
     VARIABLE, SUBSCRIPTS, FIELD, INTEGER_CONSTANT, REAL_CONSTANT, STRING_CONSTANT, BOOLEAN_CONSTANT,;

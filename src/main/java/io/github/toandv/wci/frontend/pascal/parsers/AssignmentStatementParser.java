@@ -31,19 +31,19 @@ public class AssignmentStatementParser extends StatementParser {
         ICodeNode assignNode = ICodeFactory.createICodeNode(ASSIGN);
 
         // Look up identifier from SymTabStack.
-        String targetName = token.getText().toString();
-        SymTabEntry targetId = symTabStack.lookup(targetName);
-        if (targetId == null) {
+        String targetName = token.getText();
+        SymTabEntry variableId = symTabStack.lookup(targetName);
+        if (variableId == null) {
             // If not existing, enter new id.
-            targetId = symTabStack.enterLocal(targetName);
+            variableId = symTabStack.enterLocal(targetName);
         }
-        targetId.appendLineNumber(token.getLineNumber());
+        variableId.appendLineNumber(token.getLineNumber());
 
         token = nextToken(); // Consume the identifier token, variable name.
 
         // Create a var node, and set its name.
         ICodeNode variableNode = ICodeFactory.createICodeNode(VARIABLE);
-        variableNode.setAttribute(ID, targetId);
+        variableNode.setAttribute(ID, variableId);
 
         assignNode.addChild(variableNode);
 

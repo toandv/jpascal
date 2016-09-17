@@ -7,11 +7,15 @@ import com.google.common.collect.ImmutableMap;
 
 import io.github.toandv.wci.frontend.TokenType;
 
+/**
+ * DIV and / are presented by SLASH("/")
+ */
+
 public enum PascalTokenType implements TokenType {
     // Reserved words.
     AND("and"), ARRAY("array"), BEGIN("begin"), CASE("case"), CONST("const"),
 
-    DIV("div"), DO("do"), DOWNTO("downto"), ELSE("else"), END("end"),
+    DO("do"), DOWNTO("downto"), ELSE("else"), END("end"),
 
     FILE("file"), FOR("for"), FUNCTION("function"), GOTO("goto"), IF("if"),
 

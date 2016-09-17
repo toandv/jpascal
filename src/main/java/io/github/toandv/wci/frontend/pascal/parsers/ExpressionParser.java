@@ -10,6 +10,7 @@ import io.github.toandv.wci.frontend.pascal.PascalTokenType;
 import io.github.toandv.wci.intermediate.icode.ICodeFactory;
 import io.github.toandv.wci.intermediate.icode.ICodeNode;
 import io.github.toandv.wci.intermediate.icode.ICodeNodeType;
+import io.github.toandv.wci.intermediate.icode.impl.ICodeKeyImpl;
 import io.github.toandv.wci.intermediate.icode.impl.ICodeNodeTypeImpl;
 
 import java.util.HashMap;
@@ -37,7 +38,7 @@ public class ExpressionParser extends StatementParser {
     public static final Map<PascalTokenType, ICodeNodeTypeImpl> ADD_OPS_OPS_MAP;
 
     // Set of multiplicative operators.
-    public static final Set<PascalTokenType> MULT_OPS = Sets.immutableEnumSet(STAR, SLASH, DIV, PascalTokenType.MOD,
+    public static final Set<PascalTokenType> MULT_OPS = Sets.immutableEnumSet(STAR, SLASH, PascalTokenType.MOD,
             PascalTokenType.AND);
 
     // Map multiplicative operator tokens to node types.
@@ -65,15 +66,11 @@ public class ExpressionParser extends StatementParser {
     static {
         Map<PascalTokenType, ICodeNodeType> MUTABLE_MULT_OPS_OPS_MAP = new HashMap<>();
         MUTABLE_MULT_OPS_OPS_MAP.put(STAR, MULTIPLY);
-        MUTABLE_MULT_OPS_OPS_MAP.put(SLASH, FLOAT_DIVIDE);
-        MUTABLE_MULT_OPS_OPS_MAP.put(DIV, INTEGER_DIVIDE);
+        MUTABLE_MULT_OPS_OPS_MAP.put(SLASH, DIVIDE);
         MUTABLE_MULT_OPS_OPS_MAP.put(PascalTokenType.MOD, ICodeNodeTypeImpl.MOD);
         MUTABLE_MULT_OPS_OPS_MAP.put(PascalTokenType.AND, ICodeNodeTypeImpl.AND);
         MULT_OPS_OPS_MAP = ImmutableMap.copyOf(MUTABLE_MULT_OPS_OPS_MAP);
     }
-
-    // NOTE: All parsers share the same scanner, so it is fine to extend ExpressionParser
-    protected TermParser termParser;
 
     public ExpressionParser(Parser parent) {
         super(parent);
@@ -102,9 +99,12 @@ public class ExpressionParser extends StatementParser {
             token = nextToken(); // Consume the operator token.
 
             // Parse the second simple expression.
-            opNode.addChild(parseSimpleExpression(token));
+            ICodeNode rightHandExpression = parseSimpleExpression(token);
+            opNode.addChild(rightHandExpression);
             rootNode = opNode;
+            rootNode.setMultiValuesAttribute(ICodeKeyImpl.EBNF_SYMBOL, PascalNonTerminal.EXPRESSION);
         }
+        rootNode.setMultiValuesAttribute(ICodeKeyImpl.EBNF_SYMBOL, PascalNonTerminal.EXPRESSION);
         return rootNode;
     }
 
@@ -119,10 +119,8 @@ public class ExpressionParser extends StatementParser {
         }
 
         // Parse a term and make it the root.
-        if (termParser == null) {
-            // NOTE: create a new TermParser or share the same TermParser
-            termParser = new TermParser(this);
-        }
+        // Create a new parser every time in favour of stateless and thread-safety
+        TermParser  termParser = new TermParser(this);
         ICodeNode rootNode = termParser.parse(token);
 
         // Was there a leading - assign.
@@ -143,13 +141,15 @@ public class ExpressionParser extends StatementParser {
             token = nextToken(); // Consume the operator.
 
             // Parse another factor.
-            opNode.addChild(termParser.parse(token));
+            ICodeNode rightHandleNode = termParser.parse(token);
+            opNode.addChild(rightHandleNode);
 
             // The operator node becomes the root node.
             rootNode = opNode;
-
+            rootNode.setMultiValuesAttribute(ICodeKeyImpl.EBNF_SYMBOL, PascalNonTerminal.SIMPLE_EXPRESSION);
             token = currentToken(); // Update current token.
         }
+        rootNode.setMultiValuesAttribute(ICodeKeyImpl.EBNF_SYMBOL, PascalNonTerminal.SIMPLE_EXPRESSION);
         return rootNode;
     }
 

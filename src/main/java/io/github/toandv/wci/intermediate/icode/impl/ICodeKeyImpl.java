@@ -4,6 +4,6 @@ import io.github.toandv.wci.intermediate.icode.ICodeKey;
 
 public enum ICodeKeyImpl implements ICodeKey {
 
-    LINE, ID, VALUE;
+    LINE, ID, VALUE, EBNF_SYMBOL;
 
 }
